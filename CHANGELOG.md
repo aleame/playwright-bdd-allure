@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Removed comments from all class files for cleaner, more maintainable code
+- Simplified `open:playwright` script to use `npx playwright show-report` instead of platform-specific commands
 
 ## [1.0.0] - 2025-12-04
 
