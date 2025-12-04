@@ -23,6 +23,11 @@ export function cartAddRandomProduct(productListNames: string[]): string {
   return productListNames[randomIndex];
 }
 
+/**
+ * @function generateNewAccountInfo
+ * @description Generate a new account information using Faker.js
+ * @returns {AccountInfo} New account information
+ */
 export function generateNewAccountInfo(): AccountInfo {
   const currentYear = new Date().getFullYear();
   const maxBirthYear = currentYear - 21;
