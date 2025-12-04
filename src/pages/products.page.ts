@@ -1,4 +1,3 @@
-// src/pages/products.page.ts
 import BasePage from "./base.page";
 import { CommonLocators, ProductsLocators } from "@locators"
 
@@ -41,36 +40,14 @@ export class ProductsPage extends BasePage {
     };
 
     async selectProductByName(productName: string): Promise<void> {
-        // Encuentra el wrapper del producto que contiene el nombre
         const productWrapper = this.elements.productWrappers().filter({
             has: this.page.locator(ProductsLocators.PRODUCT_NAME_GRID, { hasText: productName })
         }).first();
-
-        // Espera a que sea visible
         await productWrapper.waitFor({ state: 'visible' });
-
-        // Encuentra y hace clic en el "View Product" de ese producto específico
         await productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK).waitFor({ state: 'visible' });
         await productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK).click();
-
         await this.page.waitForLoadState('networkidle');
     }
-
-    // async addCartProductByName(productName: string): Promise<void> {
-    //     // Encuentra el wrapper del producto que contiene el nombre
-    //     const productWrapper = this.elements.productWrappers().filter({
-    //         has: this.page.locator(ProductsLocators.PRODUCT_NAME_GRID, { hasText: productName })
-    //     }).first();
-
-    //     // Espera a que sea visible
-    //     await productWrapper.waitFor({ state: 'visible' });
-
-    //     // Encuentra y hace clic en el "View Product" de ese producto específico
-    //     await productWrapper.locator(ProductsLocators.ADD_TO_CART_BUTTON).waitFor({ state: 'visible' });
-    //     await productWrapper.locator(ProductsLocators.ADD_TO_CART_BUTTON).click();
-
-    //     await this.page.waitForLoadState('networkidle');
-    // }
 
     async getProductGridName(): Promise<string> {
         return await this.elements.productNameGrid().innerText();

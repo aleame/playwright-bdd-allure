@@ -1,4 +1,3 @@
-// src/pages/login.page.ts
 import { AccountInfo } from '@support/interfaces';
 import BasePage from './base.page';
 import { CommonLocators, LoginLocators } from '@locators';
