@@ -11,6 +11,7 @@
 - **📊 Allure Reports**
 - **🥒 Cucumber**
 - **🟦 TypeScript**
+- **🧪 Faker.js**
 - **🟢 Node.js**
 
 ## 🎯 Prerequisites
@@ -87,14 +88,9 @@ npm run test:products:headed
 npm run allure:serve
 ```
 
-- **Playwright report (windows):**
+- **Playwright report:**
 ```bash
-npm run open:playwright:win
-```
-
-- **Playwright report (macos):**
-```bash
-npm run open:playwright:mac
+npm run open:playwright
 ```
 
 ## 📸 Sample report examples:

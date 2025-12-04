@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-12-04
+
+### Added
+- Added JSDoc comments to `generateNewAccountInfo` function in `utils.ts` for better code documentation
+
+### Changed
+- Removed comments from all class files for cleaner, more maintainable code
+- Simplified `open:playwright` script to use `npx playwright show-report` instead of platform-specific commands
+- Updated README to include Faker.js in the tech stack
+- Updated README Playwright report instructions to use the simplified cross-platform `open:playwright` command
+
 ## [1.0.0] - 2025-12-04
 
 ### Added

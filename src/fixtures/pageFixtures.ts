@@ -1,4 +1,3 @@
-// src/fixtures/pageFixtures.ts
 import { test as base } from 'playwright-bdd';
 import { LoginPage } from '@pages/login.page';
 import { HomePage } from '@pages/home.page';

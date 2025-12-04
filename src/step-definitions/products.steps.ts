@@ -1,4 +1,3 @@
-// src/step-definitions/products.steps.ts
 import { createBdd } from 'playwright-bdd';
 import { test } from '@fixtures/pageFixtures';
 import { URLs, ValidationTexts } from '@data/test-data';

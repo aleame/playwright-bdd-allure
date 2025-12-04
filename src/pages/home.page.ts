@@ -1,4 +1,3 @@
-// src/pages/home.page.ts
 import BasePage from './base.page';
 import { HomeLocators, CommonLocators } from '@locators';
 
@@ -20,49 +19,40 @@ export class HomePage extends BasePage {
 
     async getLoggedInUserText(): Promise<string | null> {
         await this.elements.loggedInUser().waitFor({ state: 'visible' });
-        // Wait for the element to have stable text content (not empty)
         await this.elements.loggedInUser().waitFor({
             state: 'visible',
             timeout: 10000
         });
-        // Additional wait to ensure the text is fully loaded
         await this.page.waitForTimeout(500);
         return await this.elements.loggedInUser().textContent();
     }
 
     async getLoggedInNewUserText(): Promise<string | null> {
         await this.elements.loggedInNewUser().waitFor({ state: 'visible' });
-        // Wait for the element to have stable text content (not empty)
         await this.elements.loggedInNewUser().waitFor({
             state: 'visible',
             timeout: 10000
         });
-        // Additional wait to ensure the text is fully loaded
         await this.page.waitForTimeout(500);
         return await this.elements.loggedInNewUser().textContent();
     }
 
     async waitForLoggedInUserEmail(expectedEmail: string): Promise<void> {
-        // Wait for the logged-in user element to be visible first
         await this.elements.loggedInUser().waitFor({
             state: 'visible',
             timeout: 15000
         });
-
-        // Poll until the element text contains the expected email
         let attempts = 0;
-        const maxAttempts = 30; // 15 seconds with 500ms intervals
+        const maxAttempts = 30;
 
         while (attempts < maxAttempts) {
             const text = await this.elements.loggedInUser().textContent();
             if (text && text.includes(expectedEmail)) {
-                return; // Success!
+                return;
             }
             await this.page.waitForTimeout(500);
             attempts++;
         }
-
-        // If we get here, the email never appeared
         const finalText = await this.elements.loggedInUser().textContent();
         throw new Error(`Timeout waiting for logged-in user to contain "${expectedEmail}". Current text: "${finalText}"`);
     }
