@@ -1,4 +1,3 @@
-// src/locators/products.locators.ts
 export enum ProductsLocators {
     PRODUCTS_HEADER = 'h2.title.text-center',
     SEARCH_INPUT = 'input[id="search_product"]',
