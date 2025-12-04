@@ -23,3 +23,21 @@ export interface ProductInfo {
   category?: string;
   quantity?: string;
 }
+
+export interface AccountInfo {
+  gender: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  day_birth: string;
+  month_birth: string;
+  year_birth: string;
+  company: string;
+  address: string;
+  country: string;
+  state: string;
+  city: string;
+  zipcode: string;
+  mobile_phone: string;
+}

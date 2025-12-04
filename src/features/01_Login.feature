@@ -36,3 +36,11 @@ Feature: User Authentication - Automation Excercise
     And the browser should display user mail account in homepage
     When the user logs out from the application
     Then the browser should display the login page again
+
+  @createaccount
+  Scenario: 05 - Create User Account
+    When the user navigates to the authentication section
+    And the user provides new name and email address
+    And the user fills out the form with personal information
+    And the user validates the account creation
+    Then the browser should display new user mail account in homepage
