@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { AccountInfo } from './interfaces';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * @function selectRandomProduct
@@ -53,3 +55,27 @@ export function generateNewAccountInfo(): AccountInfo {
     mobile_phone: faker.phone.number()
   };
 }
+
+/**
+ * @function saveUserCredentials
+ * @description Save user credentials (email and password) to a file
+ * @param {string} email - User email
+ * @param {string} password - User password
+ * @returns {void}
+ */
+export function saveUserCredentials(email: string, password: string): void {
+  const credentialsDir = path.join(process.cwd(), 'src/data');
+  const credentialsFile = path.join(credentialsDir, 'user-credentials.txt');
+  if (!fs.existsSync(credentialsDir)) {
+    fs.mkdirSync(credentialsDir, { recursive: true });
+  }
+  const timestamp = new Date().toISOString();
+  const credentialEntry = `\n${'='.repeat(60)}\n` +
+    `Created: ${timestamp}\n` +
+    `Email: ${email}\n` +
+    `Password: ${password}\n` +
+    `${'='.repeat(60)}\n`;
+  fs.appendFileSync(credentialsFile, credentialEntry, 'utf8');
+  console.log(`✅ Credentials saved to: ${credentialsFile}`);
+}
+
