@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "@features/*": [
+                "src/features/*"
+            ],
+            "@pages/*": [
+                "src/pages/*"
+            ],
+            "@steps/*": [
+                "src/step-definitions/*"
+            ],
+            "@locators/*": [
+                "src/locators/*"
+            ],
+            "@locators": [
+                "src/locators/index.ts"
+            ],
+            "@data/*": [
+                "src/data/*"
+            ],
+            "@fixtures/*": [
+                "src/fixtures/*"
+            ],
+            "@support/*": [
+                "src/support/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
