@@ -1,0 +1,16 @@
+{
+    "cucumber.features": [
+        "src/features/**/*.feature"
+    ],
+    "cucumber.glue": [
+        "src/step-definitions/**/*.ts",
+        "src/support/**/*.ts"
+    ],
+    "[feature]": {
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on",
+            "other": "on"
+        }
+    }
+}
