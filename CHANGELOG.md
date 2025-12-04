@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added new `Given` step "The user register new account and logins with valid authentication" in `login.steps.ts` for combined registration and login flow
+
+### Changed
+- Updated Shop feature background to use new registration and login step instead of simple login
+- Enhanced console logging for new account information with emoji prefix for better visibility
+
 ## [1.0.1] - 2025-12-04
 
 ### Added

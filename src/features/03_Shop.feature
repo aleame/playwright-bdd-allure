@@ -5,7 +5,7 @@ Feature: Shop Management - Automation Excercise
     So that the user can purchase items
 
   Background:
-    Given The user logins with valid authentication credentials
+    Given The user register new account and logins with valid authentication
 
   Scenario: 01 - Shop Products with search
     When the user navigates to the products section
