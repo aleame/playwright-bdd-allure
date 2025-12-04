@@ -37,9 +37,7 @@
     "clean:allure": "rm -rf reports/allure-results && rm -rf reports/allure-report",
     "clean:playwright": "rm -rf reports/playwright",
     "clean:all": "npm run clean:allure && npm run clean:playwright",
-    "open:playwright:linux": "xdg-open reports/playwright/index.html",
-    "open:playwright:mac": "open reports/playwright/index.html",
-    "open:playwright:win": "start reports/playwright/index.html"
+    "open:playwright": "npx playwright show-report reports/playwright"
   },
   "keywords": [],
   "author": "Alejandro Amerisse",
