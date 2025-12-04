@@ -7,6 +7,7 @@ import { CheckoutPage } from '@pages/checkout.page';
 import { ProductInfo } from '@support/interfaces';
 
 type TestContext = {
+  newAccountInfo: import("/home/alex/git/playwright-bdd-allure/src/support/interfaces").AccountInfo;
   addedProducts: ProductInfo[];
 };
 
@@ -21,7 +22,24 @@ type PageFixtures = {
 export const test = base.extend<PageFixtures>({
   testContext: async ({ }, use) => {
     const context: TestContext = {
-      addedProducts: []
+      addedProducts: [],
+      newAccountInfo: {
+        gender: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        day_birth: '',
+        month_birth: '',
+        year_birth: '',
+        company: '',
+        address: '',
+        country: '',
+        state: '',
+        city: '',
+        zipcode: '',
+        mobile_phone: ''
+      },
     };
     await use(context);
   },

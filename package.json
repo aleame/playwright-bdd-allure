@@ -12,14 +12,18 @@
     "test:home": "playwright test --grep @home",
     "test:products": "playwright test --grep @products",
     "test:shop": "playwright test --grep @shop",
+    "test:singup": "playwright test --grep @createaccount",
     "test:chromium": "BROWSER=chromium playwright test",
     "test:firefox": "BROWSER=firefox playwright test",
     "test:allure": "npm run clean:allure && playwright test && npm run allure:generate",
     "test:allure:headed": "npm run clean:allure && playwright test --headed && npm run allure:generate",
     "test:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test && npm run allure:generate",
     "test:allure:serve": "npm run clean:allure && playwright test && npm run allure:serve",
-    "test:login:allure": "npm run clean:allure && playwright test --grep @login && npm run allure:generate",
+    "test:singup:allure": "npm run clean:allure && playwright test --grep @createaccount && npm run allure:generate",
+    "test:singup:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @createaccount && npm run allure:generate",
+    "test:singup:allure:headed": "npm run clean:allure && playwright test --grep @createaccount --headed && npm run allure:generate",
     "test:login:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @login && npm run allure:generate",
+    "test:login:allure": "npm run clean:allure && playwright test --grep @login && npm run allure:generate",
     "test:login:allure:headed": "npm run clean:allure && playwright test --grep @login --headed && npm run allure:generate",
     "test:products:allure": "npm run clean:allure && playwright test --grep @products && npm run allure:generate",
     "test:products:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @products && npm run allure:generate",
@@ -42,6 +46,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@faker-js/faker": "10.1.0",
     "@playwright/test": "1.57.0",
     "@types/node": "24.10.1",
     "allure-playwright": "3.4.2",
@@ -49,9 +54,7 @@
     "playwright": "1.57.0",
     "playwright-bdd": "8.4.2",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3"
-  },
-  "dependencies": {
+    "typescript": "5.9.3",
     "@cucumber/cucumber": "12.2.0"
   }
 }

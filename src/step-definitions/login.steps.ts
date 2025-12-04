@@ -1,6 +1,8 @@
 import { createBdd } from 'playwright-bdd';
 import { test } from '@fixtures/pageFixtures';
 import { ValidationTexts, TestUsers } from '@data/test-data';
+import { generateNewAccountInfo } from '@support/utils';
+import { AccountInfo } from '@support/interfaces';
 
 const { When, Then } = createBdd(test);
 
@@ -38,7 +40,7 @@ Then('the browser should display a validation message on the {string} field', as
       validationMessage = await loginPage.elements.emailInput().evaluate((el) => (el as HTMLInputElement).validationMessage);
       break;
     case 'password':
-      validationMessage = await loginPage.elements.passwordInput().evaluate((el) => (el as HTMLInputElement).validationMessage);
+      validationMessage = await loginPage.elements.loginPassword().evaluate((el) => (el as HTMLInputElement).validationMessage);
       break;
     default:
       throw new Error(`Unknown field: ${field}`);
@@ -50,6 +52,28 @@ Then('the browser should display a validation message on the {string} field', as
 Then('the browser should display the login page again', async ({ page, loginPage }) => {
   test.expect(page.url()).toContain('/login');
   await test.expect(loginPage.elements.emailInput()).toBeVisible();
-  await test.expect(loginPage.elements.passwordInput()).toBeVisible();
+  await test.expect(loginPage.elements.loginPassword()).toBeVisible();
   await test.expect(loginPage.elements.loginButton()).toBeVisible();
+});
+
+When('the user provides new name and email address', async ({ loginPage, testContext }) => {
+  const newAccountInfo: AccountInfo = generateNewAccountInfo();
+  console.log(newAccountInfo);
+  testContext.newAccountInfo = newAccountInfo;
+  await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
+});
+
+When('the user fills out the form with personal information', async ({ page, loginPage, testContext }) => {
+  await loginPage.enterAccountInformation(testContext.newAccountInfo);
+  const pageTitle = await page.title();
+  test.expect(pageTitle).toEqual(ValidationTexts.CREATE_ACCOUNT_SUCCESS_MESSAGE);
+
+});
+
+When('the user validates the account creation', async ({ page, loginPage, testContext }) => {
+  const headerText = await loginPage.getCreateAccountSuccessHeader();
+  test.expect(headerText).toEqual(ValidationTexts.CREATE_ACCOUNT_HEADER);
+  await loginPage.clickContinueToHomeButton();
+  const homePageTitle = await page.title();
+  test.expect(homePageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });

@@ -10,7 +10,8 @@ export class HomePage extends BasePage {
         deleteAccountButton: () => this.page.locator(HomeLocators.DELETE_ACCOUNT_BUTTON),
         productsButton: () => this.page.locator(HomeLocators.PRODUCTS_BUTTON),
         cartButton: () => this.page.locator(HomeLocators.VIEW_CART_BUTTON),
-        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER)
+        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER),
+        loggedInNewUser: () => this.page.locator(HomeLocators.LOGGED_IN_NEW_USER)
     };
 
     async clickLoginSignup(): Promise<void> {
@@ -27,6 +28,18 @@ export class HomePage extends BasePage {
         // Additional wait to ensure the text is fully loaded
         await this.page.waitForTimeout(500);
         return await this.elements.loggedInUser().textContent();
+    }
+
+    async getLoggedInNewUserText(): Promise<string | null> {
+        await this.elements.loggedInNewUser().waitFor({ state: 'visible' });
+        // Wait for the element to have stable text content (not empty)
+        await this.elements.loggedInNewUser().waitFor({
+            state: 'visible',
+            timeout: 10000
+        });
+        // Additional wait to ensure the text is fully loaded
+        await this.page.waitForTimeout(500);
+        return await this.elements.loggedInNewUser().textContent();
     }
 
     async waitForLoggedInUserEmail(expectedEmail: string): Promise<void> {

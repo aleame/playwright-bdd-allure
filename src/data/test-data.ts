@@ -6,10 +6,12 @@ export const ValidationTexts = {
     BRANDS_HEADER: 'Brands',
     ACCOUNT_DELETED: 'ACCOUNT DELETED!',
     LOGIN_ERROR_MESSAGE: 'Your email or password is incorrect!',
+    CREATE_ACCOUNT_SUCCESS_MESSAGE: 'Automation Exercise - Account Created',
 
     // Login Page
     LOGIN_HEADER: 'Login to your account',
     SIGNUP_LOGIN_BUTTON: 'Signup / Login',
+    CREATE_ACCOUNT_HEADER: 'Account Created!',
 
     // Products Page
     ALL_PRODUCTS_HEADER: 'ALL PRODUCTS',
