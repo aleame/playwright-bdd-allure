@@ -1,10 +1,10 @@
 import { createBdd } from 'playwright-bdd';
 import { test } from '@fixtures/pageFixtures';
-import { ValidationTexts, TestUsers } from '@data/test-data';
+import { ValidationTexts, TestUsers, URLs } from '@data/test-data';
 import { generateNewAccountInfo } from '@support/utils';
 import { AccountInfo } from '@support/interfaces';
 
-const { When, Then } = createBdd(test);
+const { Given, When, Then } = createBdd(test);
 
 When('the user navigates to the authentication section', async ({ page, homePage, loginPage }) => {
   await homePage.clickLoginSignup();
@@ -17,6 +17,26 @@ When('the user provides valid authentication credentials', async ({ page, loginP
   await loginPage.login(TestUsers.VALID.email, TestUsers.VALID.password);
   const pageTitle = await page.title();
   test.expect(pageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
+});
+
+Given('The user register new account and logins with valid authentication', async ({ page, homePage, loginPage }) => {
+  await page.goto(URLs.BASE_URL);
+  await homePage.verifyBrandsHeaderIsVisible();
+  await homePage.clickLoginSignup();
+  test.expect(page.url()).toContain('/login');
+  await test.expect(loginPage.elements.emailInput()).toBeVisible();
+  await test.expect(loginPage.elements.loginPassword()).toBeVisible();
+  await test.expect(loginPage.elements.loginButton()).toBeVisible();
+  const newAccountInfo: AccountInfo = generateNewAccountInfo();
+  console.log(`\n 👤 New Account Information: `);
+  console.log(newAccountInfo);
+  await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
+  await loginPage.enterAccountInformation(newAccountInfo);
+  const headerText = await loginPage.getCreateAccountSuccessHeader();
+  test.expect(headerText).toEqual(ValidationTexts.CREATE_ACCOUNT_HEADER);
+  await loginPage.clickContinueToHomeButton();
+  const homePageTitle = await page.title();
+  test.expect(homePageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });
 
 When('the user provides invalid authentication credentials', async ({ loginPage }) => {
@@ -58,6 +78,7 @@ Then('the browser should display the login page again', async ({ page, loginPage
 
 When('the user provides new name and email address', async ({ loginPage, testContext }) => {
   const newAccountInfo: AccountInfo = generateNewAccountInfo();
+  console.log(`\n 👤 New Account Information: `);
   console.log(newAccountInfo);
   testContext.newAccountInfo = newAccountInfo;
   await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
