@@ -1,7 +1,7 @@
 # 🎭Playwright BDD Allure🤖
 
 ## 📋 Overview
-- **Frontend project using Playwright framework with BDD and Allure**
+- **Automation Frontend project using Playwright framework with BDD and Allure Reports**
 - **Webpage automated https://automationexercise.com/**
 - **Using Page Object Model (POM) by flows**
 
