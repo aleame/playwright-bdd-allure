@@ -6,4 +6,5 @@ export enum HomeLocators {
     LOGOUT_BUTTON = 'a[href="/logout"]',
     PRODUCTS_BUTTON = 'a[href="/products"]',
     VIEW_CART_BUTTON = 'a[href="/view_cart"]',
+    LOGGED_IN_NEW_USER = 'a:has(i.fa-user) b',
 };

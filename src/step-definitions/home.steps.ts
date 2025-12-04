@@ -46,4 +46,11 @@ Then('the browser should display user mail account in homepage', async ({ homePa
     test.expect(loggedInUserText, `Expected logged-in user to contain "${TestUsers.VALID.email}" but got "${loggedInUserText}"`).toContain(TestUsers.VALID.email);
 });
 
+Then('the browser should display new user mail account in homepage', async ({ homePage, testContext }) => {
+    await homePage.verifyLoggedInUserIsVisible();
 
+
+    const loggedInUserText = await homePage.getLoggedInNewUserText();
+    test.expect(loggedInUserText).toBeTruthy();
+    test.expect(loggedInUserText, `Expected logged-in user to contain "${testContext.newAccountInfo.first_name}" but got "${loggedInUserText}"`).toContain(testContext.newAccountInfo.first_name);
+});
