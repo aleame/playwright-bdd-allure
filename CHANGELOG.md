@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added new `Given` step "The user register new account and logins with valid authentication" in `login.steps.ts` for combined registration and login flow
+- Added `saveUserCredentials` function in `utils.ts` to persist generated user credentials to file
+- Created `user-credentials.txt` file in `src/data/` to store generated test account credentials with timestamps
+- Integrated credential saving into registration step definitions for tracking created test accounts
 
 ### Changed
 - Updated Shop feature background to use new registration and login step instead of simple login
