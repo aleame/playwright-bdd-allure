@@ -6,13 +6,13 @@
 - **Using Page Object Model (POM) by flows**
 
 ## 💡 Technologies
-- **🎭 Playwright**
-- **🧩 Playwright-BDD**
-- **📊 Allure Reports**
-- **🥒 Cucumber**
-- **🟦 TypeScript**
-- **🧪 Faker.js**
-- **🟢 Node.js**
+- **🎭 [Playwright](https://playwright.dev/)**
+- **🧩 [Playwright-BDD](https://vitalets.github.io/playwright-bdd/)**
+- **📊 [Allure Reports](https://allurereport.org/docs/)**
+- **🥒 [Cucumber](https://cucumber.io/)**
+- **🟦 [TypeScript](https://www.typescriptlang.org/)**
+- **🧪 [Faker.js](https://fakerjs.dev/)**
+- **🟢 [Node.js](https://nodejs.org/)**
 
 ## 🎯 Prerequisites
 - **Node.js 22+**
