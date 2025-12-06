@@ -8,6 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+
+## [1.0.3] - 2025-12-06
+
+### Added
+- Added utility methods to `base.page.ts` for common page interactions:
+  - `waitForElement()` - Wait for element with configurable timeout
+  - `isElementVisible()` - Check element visibility
+  - `takeScreenshot()` - Capture screenshots with custom names
+  - `scrollToElement()` - Scroll element into view
+- Added test artifacts and OS files to `.gitignore` (test-results, playwright-report, blob-report, downloads, .DS_Store, Thumbs.db)
+
+### Changed
+- Improved page navigation performance by using `domcontentloaded` wait strategy in `base.page.ts`
+- Updated `@cucumber/cucumber` from 12.2.0 to 12.3.0
+- Updated `allure-playwright` from 3.4.2 to 3.4.3
+
+### Removed
+- Removed unnecessary `waitForTimeout()` calls from `home.page.ts` for better performance and reliability:
+  - Removed from `getLoggedInUser()` method
+  - Removed from `getLoggedInNewUser()` method
+  - Removed from `verifyLoggedInUser()` method
+- Removed unused `cartAddRandomProduct()` function from `utils.ts`
+
+
+
 ## [1.0.2] - 2025-12-05
 
 ### Added
