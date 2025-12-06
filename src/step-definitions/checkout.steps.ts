@@ -45,7 +45,7 @@ When('the user proceed to checkout and verify total amount and products', async 
     console.log(`Products found in cart: ${cartProducts.length}`);
     expect(cartProducts.length, `Expected ${testContext.addedProducts.length} products in cart`).toBe(testContext.addedProducts.length);
     let expectedTotal = 0;
-    testContext.addedProducts.forEach((addedProduct: any) => {
+    testContext.addedProducts.forEach((addedProduct) => {
         expectedTotal += addedProduct.numericPrice;
     });
     for (const addedProduct of testContext.addedProducts) {

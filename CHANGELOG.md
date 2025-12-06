@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.2] - 2025-12-05
 
 ### Added
+- Added ESLint configuration with TypeScript and Playwright support (`eslint.config.mjs`)
+- Added ESLint VSCode extension recommendation to `.vscode/extensions.json`
+- Added npm scripts for linting: `lint` and `lint:fix`
+- Added ESLint dependencies: `@eslint/js`, `eslint`, `eslint-plugin-playwright`, and `typescript-eslint`
 - Added VSCode workspace recommendations for Playwright and Cucumber extensions in `.vscode/extensions.json`
 - Added agent rules file `.agent/rules/deny-commands.md` for controlling dangerous shell commands
 - Added comprehensive project structure documentation to README
@@ -19,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added key directories explanation to README
 
 ### Changed
+- Improved type safety by removing `any` type annotation in `checkout.steps.ts`
+- Enhanced string concatenation using template literals in `login.page.ts`
+- Reorganized dependencies in `package.json` for better alphabetical ordering
+- Improved code quality across multiple files based on ESLint recommendations
 - **Major README overhaul**: Restructured and enhanced documentation with better organization and visual hierarchy
   - Improved overview section with project highlights and architecture description
   - Added detailed project structure diagram with directory explanations
@@ -28,6 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `src/Schema/` directory to `src/schema/` for consistent lowercase naming convention
 - Cleaned up `.gitignore` by removing `package-lock.json` entry
 
+### Fixed
+- Removed unused variable `totalText` in `checkout.page.ts`
+- Removed unused parameter `testContext` from `login.steps.ts`
+- Removed unused import `URLs` from `products.steps.ts`
+- Removed extra blank lines for cleaner code formatting
+- Commented out unused variable `productNames` in `products.steps.ts`
+- Added missing null check for `productNameSelected` in `products.steps.ts`
 
 ## [1.0.1] - 2025-12-04
 
