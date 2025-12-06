@@ -66,7 +66,6 @@ Then('the browser should display a validation message on the {string} field', as
     default:
       throw new Error(`Unknown field: ${field}`);
   }
-
   test.expect(validationMessage).toContain('Please fill out this field');
 });
 
@@ -90,10 +89,9 @@ When('the user fills out the form with personal information', async ({ page, log
   await loginPage.enterAccountInformation(testContext.newAccountInfo);
   const pageTitle = await page.title();
   test.expect(pageTitle).toEqual(ValidationTexts.CREATE_ACCOUNT_SUCCESS_MESSAGE);
-
 });
 
-When('the user validates the account creation', async ({ page, loginPage, testContext }) => {
+When('the user validates the account creation', async ({ page, loginPage }) => {
   const headerText = await loginPage.getCreateAccountSuccessHeader();
   test.expect(headerText).toEqual(ValidationTexts.CREATE_ACCOUNT_HEADER);
   await loginPage.clickContinueToHomeButton();

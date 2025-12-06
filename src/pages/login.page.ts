@@ -73,7 +73,7 @@ export class LoginPage extends BasePage {
     }
     async signup(name: string, lastName: string, email: string,): Promise<void> {
         await this.elements.signupName().waitFor({ state: 'visible' });
-        const fullName = name + ' ' + lastName;
+        const fullName = `${name} ${lastName}`;
         await this.elements.signupName().fill(fullName);
         await this.elements.signupEmail().fill(email);
         await this.elements.signupButton().click();

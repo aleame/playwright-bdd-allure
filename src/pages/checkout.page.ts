@@ -97,7 +97,6 @@ export class CheckoutPage extends BasePage {
             const category = await row.locator('td.cart_description p').textContent() || '';
             const priceText = await row.locator('td.cart_price p').textContent() || '';
             const quantity = await row.locator('td.cart_quantity button').textContent() || '';
-            const totalText = await row.locator('td.cart_total p.cart_total_price').textContent() || '';
             const rowId = await row.getAttribute('id') || '';
             const productId = rowId.replace('product-', '');
             const numericPrice = parseFloat(priceText.replace('Rs. ', '').trim()) || 0;
