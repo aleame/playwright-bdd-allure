@@ -5,22 +5,22 @@ import * as allure from 'allure-js-commons';
 
 const { Given, When, Then } = createBdd(test);
 
-Given('The user has accessed the application homepage', async ({ page, homePage }) => {
-    await page.goto(URLs.BASE_URL);
+Given('The user has accessed the application homepage', async ({ homePage }) => {
+    await homePage.navigateTo(URLs.BASE_URL);
     await homePage.verifyBrandsHeaderIsVisible();
-    const pageTitle = await page.title();
+    const pageTitle = await homePage.getTitle();
     test.expect(pageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });
 
-Given('The user logins with valid authentication credentials', async ({ page, homePage, loginPage }) => {
-    await page.goto(URLs.BASE_URL);
+Given('The user logins with valid authentication credentials', async ({ homePage, loginPage }) => {
+    await homePage.navigateTo(URLs.BASE_URL);
     await homePage.verifyBrandsHeaderIsVisible();
     await homePage.clickLoginSignup();
-    const pageTitle = await page.title();
+    const pageTitle = await homePage.getTitle();
     test.expect(pageTitle).toEqual(ValidationTexts.LOGIN_PAGE_TITLE);
     await loginPage.login(TestUsers.VALID.email, TestUsers.VALID.password);
     await allure.parameter('User Email', TestUsers.VALID.email);
-    await page.waitForLoadState('networkidle');
+    await loginPage.waitForPageLoad();
     await homePage.waitForLoggedInUserEmail(TestUsers.VALID.email);
     const loggedInUserText = await homePage.getLoggedInUserText();
     test.expect(loggedInUserText).toBeTruthy();

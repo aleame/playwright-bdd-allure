@@ -14,81 +14,62 @@ export class HomePage extends BasePage {
     };
 
     async clickLoginSignup(): Promise<void> {
-        await this.elements.loginSignupButton().click();
+        await this.safeClick(this.elements.loginSignupButton());
     }
 
-    async getLoggedInUserText(): Promise<string | null> {
-        await this.elements.loggedInUser().waitFor({ state: 'visible' });
-        await this.elements.loggedInUser().waitFor({
-            state: 'visible',
-            timeout: 10000
+    async getLoggedInUserText(): Promise<string> {
+        return await this.getTextContent(HomeLocators.LOGGED_IN_USER_OK, {
+            timeout: 10000,
+            required: true
         });
-        await this.page.waitForTimeout(500);
-        return await this.elements.loggedInUser().textContent();
     }
 
-    async getLoggedInNewUserText(): Promise<string | null> {
-        await this.elements.loggedInNewUser().waitFor({ state: 'visible' });
-        await this.elements.loggedInNewUser().waitFor({
-            state: 'visible',
-            timeout: 10000
+    async getLoggedInNewUserText(): Promise<string> {
+        return await this.getTextContent(HomeLocators.LOGGED_IN_NEW_USER, {
+            timeout: 10000,
+            required: true
         });
-        await this.page.waitForTimeout(500);
-        return await this.elements.loggedInNewUser().textContent();
     }
 
     async waitForLoggedInUserEmail(expectedEmail: string): Promise<void> {
-        await this.elements.loggedInUser().waitFor({
-            state: 'visible',
-            timeout: 15000
-        });
-        let attempts = 0;
-        const maxAttempts = 30;
-
-        while (attempts < maxAttempts) {
-            const text = await this.elements.loggedInUser().textContent();
-            if (text && text.includes(expectedEmail)) {
-                return;
-            }
-            await this.page.waitForTimeout(500);
-            attempts++;
-        }
-        const finalText = await this.elements.loggedInUser().textContent();
-        throw new Error(`Timeout waiting for logged-in user to contain "${expectedEmail}". Current text: "${finalText}"`);
+        await this.waitForTextContains(
+            HomeLocators.LOGGED_IN_USER_OK,
+            expectedEmail,
+            { timeout: 15000 }
+        );
     }
 
     async verifyLoggedInUserIsVisible(): Promise<void> {
-        await this.elements.loggedInUser().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.loggedInUser(), { state: 'visible' });
     }
 
     async verifyLogoutButtonIsVisible(): Promise<void> {
-        await this.elements.logoutButton().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.logoutButton(), { state: 'visible' });
     }
 
     async clickDeleteAccount(): Promise<void> {
-        await this.elements.deleteAccountButton().click();
+        await this.safeClick(this.elements.deleteAccountButton());
     }
 
     async verifyBrandsHeaderIsVisible(): Promise<void> {
-        await this.elements.infoHeader().first().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.infoHeader().first(), { state: 'visible' });
     }
 
     async clickLogout(): Promise<void> {
-        await this.elements.logoutButton().waitFor({ state: 'visible' });
-        await this.elements.logoutButton().click();
-        await this.page.waitForLoadState('networkidle');
+        await this.safeClick(HomeLocators.LOGOUT_BUTTON);
+        await this.waitForPageLoad('domcontentloaded');
     }
 
     async verifyHomePageIsLoaded(): Promise<void> {
-        await this.elements.infoHeader().waitFor({ state: 'visible' });
-        await this.elements.loginSignupButton().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.infoHeader(), { state: 'visible' });
+        await this.waitForLocator(this.elements.loginSignupButton(), { state: 'visible' });
     }
 
     async navigateToProducts(): Promise<void> {
-        await this.elements.productsButton().click();
+        await this.safeClick(this.elements.productsButton());
     }
 
     async navigateToCart(): Promise<void> {
-        await this.elements.cartButton().first().click();
+        await this.safeClick(this.elements.cartButton().first());
     }
 }

@@ -43,10 +43,10 @@ export class ProductsPage extends BasePage {
         const productWrapper = this.elements.productWrappers().filter({
             has: this.page.locator(ProductsLocators.PRODUCT_NAME_GRID, { hasText: productName })
         }).first();
-        await productWrapper.waitFor({ state: 'visible' });
-        await productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK).waitFor({ state: 'visible' });
-        await productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK).click();
-        await this.page.waitForLoadState('networkidle');
+        await this.waitForLocator(productWrapper, { state: 'visible' });
+        await this.waitForLocator(productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK), { state: 'visible' });
+        await this.safeClick(productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK));
+        await this.waitForPageLoad('domcontentloaded');
     }
 
     async getProductGridName(): Promise<string> {
@@ -91,23 +91,24 @@ export class ProductsPage extends BasePage {
     }
 
     async clickFirstProduct(): Promise<void> {
-        await this.elements.firstProductViewLink().scrollIntoViewIfNeeded();
-        await this.elements.firstProductViewLink().click();
+        await this.scrollToElement(ProductsLocators.VIEW_PRODUCT_FIRST_LINK);
+        await this.safeClick(this.elements.firstProductViewLink());
     }
 
     async clickProductById(productId: string): Promise<void> {
-        await this.elements.productByLinkID(productId).scrollIntoViewIfNeeded();
-        await this.elements.productByLinkID(productId).click();
+        const productLink = this.elements.productByLinkID(productId);
+        await this.scrollToElement(`a[href="/product_details/${productId}"]`);
+        await this.safeClick(productLink);
     }
 
     async searchProduct(productName: string): Promise<void> {
-        await this.elements.searchInput().fill(productName);
-        await this.elements.searchButton().click();
-        await this.page.waitForLoadState('networkidle');
+        await this.safeFill(this.elements.searchInput(), productName);
+        await this.safeClick(this.elements.searchButton());
+        await this.waitForPageLoad('domcontentloaded');
     }
 
     async verifySearchedProductsHeaderIsVisible(): Promise<void> {
-        await this.elements.infoHeader().waitFor({
+        await this.waitForLocator(this.elements.infoHeader(), {
             state: 'visible',
             timeout: 1000
         });
@@ -118,39 +119,39 @@ export class ProductsPage extends BasePage {
     }
 
     async verifyProductDetailsPageIsLoaded(): Promise<void> {
-        await this.elements.reviewsTab().waitFor({ state: 'visible' });
-        await this.elements.productInformation().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.reviewsTab(), { state: 'visible' });
+        await this.waitForLocator(this.elements.productInformation(), { state: 'visible' });
     }
 
     async verifyNoProductsFoundMessageIsVisible(): Promise<void> {
-        await this.elements.noProductsFoundMessage().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.noProductsFoundMessage(), { state: 'visible' });
     }
 
     async filterByBrand(brand: string): Promise<void> {
         switch (brand.toLowerCase()) {
             case 'polo':
-                await this.elements.brandPolo().click();
+                await this.safeClick(this.elements.brandPolo());
                 break;
             case 'h&m':
-                await this.elements.brandHM().click();
+                await this.safeClick(this.elements.brandHM());
                 break;
             case 'madame':
-                await this.elements.brandMadame().click();
+                await this.safeClick(this.elements.brandMadame());
                 break;
             case 'mast & harbour':
-                await this.elements.brandMastHarbour().click();
+                await this.safeClick(this.elements.brandMastHarbour());
                 break;
             case 'babyhug':
-                await this.elements.brandBabyhug().click();
+                await this.safeClick(this.elements.brandBabyhug());
                 break;
             case 'biba':
-                await this.elements.brandBiba().click();
+                await this.safeClick(this.elements.brandBiba());
                 break;
             case 'allen solly junior':
-                await this.elements.brandAllenSollyJunior().click();
+                await this.safeClick(this.elements.brandAllenSollyJunior());
                 break;
             case 'kookie kids':
-                await this.elements.brandKookieKids().click();
+                await this.safeClick(this.elements.brandKookieKids());
                 break;
             default:
                 throw new Error(`Brand ${brand} not recognized`);
@@ -174,25 +175,25 @@ export class ProductsPage extends BasePage {
     async clearBrandFilter(brand: string): Promise<void> {
         switch (brand.toLowerCase()) {
             case 'polo':
-                await this.elements.brandPolo().click();
+                await this.safeClick(this.elements.brandPolo());
                 break;
             case 'h&m':
-                await this.elements.brandHM().click();
+                await this.safeClick(this.elements.brandHM());
                 break;
             case 'madame':
-                await this.elements.brandMadame().click();
+                await this.safeClick(this.elements.brandMadame());
                 break;
             case 'mast & harbour':
-                await this.elements.brandMastHarbour().click();
+                await this.safeClick(this.elements.brandMastHarbour());
                 break;
             case 'babyhug':
-                await this.elements.brandBabyhug().click();
+                await this.safeClick(this.elements.brandBabyhug());
                 break;
             case 'biba':
-                await this.elements.brandBiba().click();
+                await this.safeClick(this.elements.brandBiba());
                 break;
             case 'allen solly junior':
-                await this.elements.brandAllenSollyJunior().click();
+                await this.safeClick(this.elements.brandAllenSollyJunior());
                 break;
             default:
                 throw new Error(`Brand ${brand} not recognized`);

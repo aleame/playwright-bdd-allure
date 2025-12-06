@@ -7,6 +7,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5] - 2025-12-06
+
+### Added
+- Added `getUrl()` method to `BasePage` for retrieving current page URL
+- Added explicit return type `Promise<string>` to `getTitle()` method in `BasePage` for better type safety
+
+### Changed
+- **Major refactoring**: Updated all step definition files to use `BasePage` utility methods instead of direct Playwright `Page` API calls
+  - Refactored `checkout.steps.ts` to use `waitForPageLoad()` instead of `page.waitForLoadState()`
+  - Refactored `home.steps.ts` to use `navigateTo()`, `getTitle()`, and `waitForPageLoad()` instead of direct `page` methods
+  - Refactored `products.steps.ts` to use `getTitle()`, `getUrl()`, and `waitForPageLoad()` instead of direct `page` methods
+  - Refactored `login.steps.ts` to use `navigateTo()`, `getTitle()`, and `getUrl()` instead of direct `page` methods
+- Removed unnecessary `page` fixture dependencies from step definitions where `BasePage` methods are now used
+
+### Improved
+- Enhanced consistency across all step definitions by standardizing on `BasePage` utility methods
+- Improved error handling in step definitions by leveraging custom error types from `BasePage`
+- Moved away from deprecated `'networkidle'` wait state to recommended `'domcontentloaded'` state
+- Better maintainability through centralized page interaction logic in `BasePage`
+
+## [1.0.4] - 2025-12-06
+
+### Changed
+- **Major refactoring**: Updated all page object classes to use `BasePage` utility methods for improved error handling and consistency
+  - Refactored `LoginPage` to use `safeClick()`, `safeFill()`, `selectOption()`, `getTextContent()`, and `waitForLocator()`
+  - Refactored `HomePage` to use `safeClick()` and `waitForLocator()` for all element interactions
+  - Refactored `ProductsPage` to use `safeClick()`, `safeFill()`, `waitForLocator()`, `scrollToElement()`, and `waitForPageLoad()`
+  - Refactored `CheckoutPage` to use `safeClick()`, `safeFill()`, and `waitForLocator()`
+- Updated `base.page.ts` `waitForElement()` method to use `locator.waitFor()` instead of deprecated `page.waitForSelector()` for Playwright best practices compliance
+
+### Fixed
+- Fixed ESLint warning in `base.page.ts` by replacing `page.waitForSelector()` with modern `locator.waitFor()` API
+- Fixed TypeScript errors in `CheckoutPage` by properly calling `this.safeClick()` instead of calling on Locator objects
+- Changed `console.log()` to `console.warn()` in `CheckoutPage` to comply with ESLint rules
+
+### Improved
+- Enhanced error handling across all page objects with custom error types (`ElementNotInteractableError`, `TextContentError`, `TimeoutError`)
+- Improved null safety in text content retrieval methods
+- Standardized timeout handling across all page interactions
+- Better auto-waiting behavior for element interactions reducing test flakiness
+
+## [1.0.3] - 2025-12-06
+
+### Added
+- Added utility methods to `base.page.ts` for common page interactions:
+  - `waitForElement()` - Wait for element with configurable timeout
+  - `isElementVisible()` - Check element visibility
+  - `takeScreenshot()` - Capture screenshots with custom names
+  - `scrollToElement()` - Scroll element into view
+- Added test artifacts and OS files to `.gitignore` (test-results, playwright-report, blob-report, downloads, .DS_Store, Thumbs.db)
+
+### Changed
+- Improved page navigation performance by using `domcontentloaded` wait strategy in `base.page.ts`
+- Updated `@cucumber/cucumber` from 12.2.0 to 12.3.0
+- Updated `allure-playwright` from 3.4.2 to 3.4.3
+
+### Removed
+- Removed unnecessary `waitForTimeout()` calls from `home.page.ts` for better performance and reliability:
+  - Removed from `getLoggedInUser()` method
+  - Removed from `getLoggedInNewUser()` method
+  - Removed from `verifyLoggedInUser()` method
+- Removed unused `cartAddRandomProduct()` function from `utils.ts`
 
 ## [1.0.2] - 2025-12-05
 

@@ -21,11 +21,11 @@ When('the user searches for a product and add to cart random one', async ({ chec
     }
 });
 
-When('the user proceed to checkout and verify total amount and products', async ({ page, homePage, checkoutPage, testContext }) => {
+When('the user proceed to checkout and verify total amount and products', async ({ homePage, checkoutPage, testContext }) => {
     await homePage.navigateToCart();
-    await page.waitForLoadState('networkidle');
+    await checkoutPage.waitForPageLoad();
     await checkoutPage.navigateToProceedToCheckout();
-    await page.waitForLoadState('networkidle');
+    await checkoutPage.waitForPageLoad();
     const cartProducts = await checkoutPage.getCartProducts();
     const totalAmount = await checkoutPage.getCartTotalAmount();
 
@@ -73,11 +73,11 @@ When('the user proceed to checkout and verify total amount and products', async 
     console.log(`===================\n`);
 });
 
-When('the user placer order with credit card', async ({ page, checkoutPage }) => {
+When('the user placer order with credit card', async ({ checkoutPage }) => {
     await checkoutPage.navigateToPlaceOrder();
-    await page.waitForLoadState('networkidle');
+    await checkoutPage.waitForPageLoad();
     await checkoutPage.addCreditCard();
     await checkoutPage.navigateToPayment();
-    await page.waitForLoadState('networkidle');
+    await checkoutPage.waitForPageLoad();
     await checkoutPage.verifyOrderPlacedHeaderIsVisible();
 });

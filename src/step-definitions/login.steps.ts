@@ -6,24 +6,24 @@ import { AccountInfo } from '@support/interfaces';
 
 const { Given, When, Then } = createBdd(test);
 
-When('the user navigates to the authentication section', async ({ page, homePage, loginPage }) => {
+When('the user navigates to the authentication section', async ({ homePage, loginPage }) => {
   await homePage.clickLoginSignup();
   await loginPage.verifyLoginHeaderIsVisible();
-  const pageTitle = await page.title();
+  const pageTitle = await loginPage.getTitle();
   test.expect(pageTitle).toEqual(ValidationTexts.LOGIN_PAGE_TITLE);
 });
 
-When('the user provides valid authentication credentials', async ({ page, loginPage }) => {
+When('the user provides valid authentication credentials', async ({ loginPage }) => {
   await loginPage.login(TestUsers.VALID.email, TestUsers.VALID.password);
-  const pageTitle = await page.title();
+  const pageTitle = await loginPage.getTitle();
   test.expect(pageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });
 
-Given('The user register new account and logins with valid authentication', async ({ page, homePage, loginPage }) => {
-  await page.goto(URLs.BASE_URL);
+Given('The user register new account and logins with valid authentication', async ({ homePage, loginPage }) => {
+  await homePage.navigateTo(URLs.BASE_URL);
   await homePage.verifyBrandsHeaderIsVisible();
   await homePage.clickLoginSignup();
-  test.expect(page.url()).toContain('/login');
+  test.expect(await loginPage.getUrl()).toContain('/login');
   await test.expect(loginPage.elements.emailInput()).toBeVisible();
   await test.expect(loginPage.elements.loginPassword()).toBeVisible();
   await test.expect(loginPage.elements.loginButton()).toBeVisible();
@@ -36,7 +36,7 @@ Given('The user register new account and logins with valid authentication', asyn
   const headerText = await loginPage.getCreateAccountSuccessHeader();
   test.expect(headerText).toEqual(ValidationTexts.CREATE_ACCOUNT_HEADER);
   await loginPage.clickContinueToHomeButton();
-  const homePageTitle = await page.title();
+  const homePageTitle = await loginPage.getTitle();
   test.expect(homePageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });
 
@@ -69,8 +69,8 @@ Then('the browser should display a validation message on the {string} field', as
   test.expect(validationMessage).toContain('Please fill out this field');
 });
 
-Then('the browser should display the login page again', async ({ page, loginPage }) => {
-  test.expect(page.url()).toContain('/login');
+Then('the browser should display the login page again', async ({ loginPage }) => {
+  test.expect(await loginPage.getUrl()).toContain('/login');
   await test.expect(loginPage.elements.emailInput()).toBeVisible();
   await test.expect(loginPage.elements.loginPassword()).toBeVisible();
   await test.expect(loginPage.elements.loginButton()).toBeVisible();
@@ -85,16 +85,16 @@ When('the user provides new name and email address', async ({ loginPage, testCon
   await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
 });
 
-When('the user fills out the form with personal information', async ({ page, loginPage, testContext }) => {
+When('the user fills out the form with personal information', async ({ loginPage, testContext }) => {
   await loginPage.enterAccountInformation(testContext.newAccountInfo);
-  const pageTitle = await page.title();
+  const pageTitle = await loginPage.getTitle();
   test.expect(pageTitle).toEqual(ValidationTexts.CREATE_ACCOUNT_SUCCESS_MESSAGE);
 });
 
-When('the user validates the account creation', async ({ page, loginPage }) => {
+When('the user validates the account creation', async ({ loginPage }) => {
   const headerText = await loginPage.getCreateAccountSuccessHeader();
   test.expect(headerText).toEqual(ValidationTexts.CREATE_ACCOUNT_HEADER);
   await loginPage.clickContinueToHomeButton();
-  const homePageTitle = await page.title();
+  const homePageTitle = await loginPage.getTitle();
   test.expect(homePageTitle).toEqual(ValidationTexts.HOME_PAGE_TITLE);
 });
