@@ -34,23 +34,20 @@ export class LoginPage extends BasePage {
     };
 
     async navigateToLogin(): Promise<void> {
-        await this.elements.signupLoginButton().click();
+        await this.safeClick(this.elements.signupLoginButton());
     }
 
     async login(email: string, password: string): Promise<void> {
-        await this.elements.emailInput().waitFor({ state: 'visible' });
-        await this.elements.emailInput().fill(email);
-
-        await this.elements.loginPassword().waitFor({ state: 'visible' });
-        await this.elements.loginPassword().fill(password);
-
-        await this.elements.loginButton().waitFor({ state: 'visible' });
-        await this.elements.loginButton().click();
+        await this.safeFill(LoginLocators.EMAIL_INPUT, email);
+        await this.safeFill(LoginLocators.PASSWORD_INPUT, password);
+        await this.safeClick(LoginLocators.LOGIN_BUTTON);
     }
 
-    async getLoginHeaderText(): Promise<string | null> {
-        await this.elements.loginHeader().waitFor({ state: 'visible' });
-        return await this.elements.loginHeader().textContent();
+    async getLoginHeaderText(): Promise<string> {
+        return await this.getTextContent(this.elements.loginHeader(), {
+            timeout: 5000,
+            required: true
+        });
     }
 
     async getPageTitle(): Promise<string> {
@@ -61,52 +58,57 @@ export class LoginPage extends BasePage {
         await this.elements.loginHeader().waitFor({ state: 'visible' });
     }
 
-    async getLoginErrorMessage(): Promise<string | null> {
-        await this.elements.loginErrorMessage().waitFor({ state: 'visible' });
-        return await this.elements.loginErrorMessage().textContent();
+    async getLoginErrorMessage(): Promise<string> {
+        return await this.getTextContent(this.elements.loginErrorMessage(), {
+            timeout: 5000,
+            required: true
+        });
     }
 
     async verifyLoginPageIsVisible(): Promise<void> {
-        await this.elements.emailInput().waitFor({ state: 'visible' });
-        await this.elements.loginPassword().waitFor({ state: 'visible' });
-        await this.elements.loginButton().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.emailInput(), { state: 'visible' });
+        await this.waitForLocator(this.elements.loginPassword(), { state: 'visible' });
+        await this.waitForLocator(this.elements.loginButton(), { state: 'visible' });
     }
     async signup(name: string, lastName: string, email: string,): Promise<void> {
-        await this.elements.signupName().waitFor({ state: 'visible' });
+        await this.waitForLocator(this.elements.signupName(), { state: 'visible' });
         const fullName = `${name} ${lastName}`;
-        await this.elements.signupName().fill(fullName);
-        await this.elements.signupEmail().fill(email);
-        await this.elements.signupButton().click();
+        await this.safeFill(this.elements.signupName(), fullName);
+        await this.safeFill(this.elements.signupEmail(), email);
+        await this.safeClick(this.elements.signupButton());
     }
 
     async enterAccountInformation(accountInfo: AccountInfo): Promise<void> {
         if (accountInfo.gender === 'male') {
-            await this.elements.genderMale().click();
+            await this.safeClick(this.elements.genderMale());
         } else {
-            await this.elements.genderFemale().click();
+            await this.safeClick(this.elements.genderFemale());
         }
-        await this.elements.signupPassword().fill(accountInfo.password);
-        await this.elements.dateDay().selectOption(accountInfo.day_birth);
-        await this.elements.dateMonth().selectOption(accountInfo.month_birth);
-        await this.elements.dateYear().selectOption(accountInfo.year_birth);
-        await this.elements.firstName().fill(accountInfo.first_name);
-        await this.elements.lastName().fill(accountInfo.last_name);
-        await this.elements.company().fill(accountInfo.company);
-        await this.elements.address().fill(accountInfo.address);
-        await this.elements.country().selectOption(accountInfo.country);
-        await this.elements.state().fill(accountInfo.state);
-        await this.elements.city().fill(accountInfo.city);
-        await this.elements.zipcode().fill(accountInfo.zipcode);
-        await this.elements.mobilePhone().fill(accountInfo.mobile_phone);
-        await this.elements.createAccountButton().click();
+        await this.safeFill(this.elements.signupPassword(), accountInfo.password);
+        await this.selectOption(this.elements.dateDay(), accountInfo.day_birth);
+        await this.selectOption(this.elements.dateMonth(), accountInfo.month_birth);
+        await this.selectOption(this.elements.dateYear(), accountInfo.year_birth);
+        await this.safeFill(this.elements.firstName(), accountInfo.first_name);
+        await this.safeFill(this.elements.lastName(), accountInfo.last_name);
+        await this.safeFill(this.elements.company(), accountInfo.company);
+        await this.safeFill(this.elements.address(), accountInfo.address);
+        await this.selectOption(this.elements.country(), accountInfo.country);
+        await this.safeFill(this.elements.state(), accountInfo.state);
+        await this.safeFill(this.elements.city(), accountInfo.city);
+        await this.safeFill(this.elements.zipcode(), accountInfo.zipcode);
+        await this.safeFill(this.elements.mobilePhone(), accountInfo.mobile_phone);
+        await this.safeClick(this.elements.createAccountButton());
     }
 
-    getCreateAccountSuccessHeader(): Promise<string | null> {
-        return this.elements.infoHeader().textContent();
+    async getCreateAccountSuccessHeader(): Promise<string> {
+        return await this.getTextContent(this.elements.infoHeader(), {
+            timeout: 5000,
+            required: true
+        });
     }
 
     async clickContinueToHomeButton(): Promise<void> {
-        await this.elements.continueButton().click();
+        await this.safeClick(this.elements.continueButton());
     }
 
 }

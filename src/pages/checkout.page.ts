@@ -56,33 +56,33 @@ export class CheckoutPage extends BasePage {
             productId: productId
         };
 
-        console.log("Selected Random Product Cart:", productInfo);
-        await randomProduct.locator(this.elements.addToCartButton()).first().click();
+        console.warn("Selected Random Product Cart:", productInfo);
+        await this.safeClick(randomProduct.locator(this.elements.addToCartButton()).first());
         return productInfo;
     }
 
     async navigateToCheckout() {
-        await this.elements.checkoutButton().first().click();
+        await this.safeClick(this.elements.checkoutButton().first());
     }
 
     async navigateToProceedToCheckout() {
-        await this.elements.proceedToCheckoutButton().click();
+        await this.safeClick(this.elements.proceedToCheckoutButton());
     }
 
     async navigateToPlaceOrder() {
-        await this.elements.placeOrderButton().click();
+        await this.safeClick(this.elements.placeOrderButton());
     }
 
     async addCreditCard() {
-        await this.elements.nameOnCard().fill(creditCardData.cardHolderName);
-        await this.elements.cardNumber().fill(creditCardData.cardNumber);
-        await this.elements.expiryMonth().fill(creditCardData.cardExpirationMonth);
-        await this.elements.expiryYear().fill(creditCardData.cardExpirationYear);
-        await this.elements.cvv().fill(creditCardData.cardCvc);
+        await this.safeFill(this.elements.nameOnCard(), creditCardData.cardHolderName);
+        await this.safeFill(this.elements.cardNumber(), creditCardData.cardNumber);
+        await this.safeFill(this.elements.expiryMonth(), creditCardData.cardExpirationMonth);
+        await this.safeFill(this.elements.expiryYear(), creditCardData.cardExpirationYear);
+        await this.safeFill(this.elements.cvv(), creditCardData.cardCvc);
     }
 
     async navigateToPayment() {
-        await this.elements.paymentButton().click();
+        await this.safeClick(this.elements.paymentButton());
     }
 
     async getCartProducts(): Promise<ProductInfo[]> {
@@ -120,7 +120,7 @@ export class CheckoutPage extends BasePage {
     }
 
     async verifyOrderPlacedHeaderIsVisible(): Promise<void> {
-        await this.elements.infoHeader().waitFor({
+        await this.waitForLocator(this.elements.infoHeader(), {
             state: 'visible',
             timeout: 1000
         });
