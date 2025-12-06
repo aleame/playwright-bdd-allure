@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-12-07
+
+### Changed
+- **Major refactoring**: Updated all page object classes to use `BasePage` utility methods for improved error handling and consistency
+  - Refactored `LoginPage` to use `safeClick()`, `safeFill()`, `selectOption()`, `getTextContent()`, and `waitForLocator()`
+  - Refactored `HomePage` to use `safeClick()` and `waitForLocator()` for all element interactions
+  - Refactored `ProductsPage` to use `safeClick()`, `safeFill()`, `waitForLocator()`, `scrollToElement()`, and `waitForPageLoad()`
+  - Refactored `CheckoutPage` to use `safeClick()`, `safeFill()`, and `waitForLocator()`
+- Updated `base.page.ts` `waitForElement()` method to use `locator.waitFor()` instead of deprecated `page.waitForSelector()` for Playwright best practices compliance
+
+### Fixed
+- Fixed ESLint warning in `base.page.ts` by replacing `page.waitForSelector()` with modern `locator.waitFor()` API
+- Fixed TypeScript errors in `CheckoutPage` by properly calling `this.safeClick()` instead of calling on Locator objects
+- Changed `console.log()` to `console.warn()` in `CheckoutPage` to comply with ESLint rules
+
+### Improved
+- Enhanced error handling across all page objects with custom error types (`ElementNotInteractableError`, `TextContentError`, `TimeoutError`)
+- Improved null safety in text content retrieval methods
+- Standardized timeout handling across all page interactions
+- Better auto-waiting behavior for element interactions reducing test flakiness
+
+
+
 
 
 ## [1.0.3] - 2025-12-06
