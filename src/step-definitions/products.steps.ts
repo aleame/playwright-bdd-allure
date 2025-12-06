@@ -5,13 +5,13 @@ import { selectRandomProduct } from '@support/utils';
 
 const { When, Then } = createBdd(test);
 
-When('the user navigates to the products section', async ({ page, homePage }) => {
+When('the user navigates to the products section', async ({ homePage }) => {
   await homePage.navigateToProducts();
-  await page.waitForLoadState('networkidle');
+  await homePage.waitForPageLoad();
 });
 
-Then('the browser should display the list of available products', async ({ page, productsPage }) => {
-  const pageTitle = await page.title();
+Then('the browser should display the list of available products', async ({ productsPage }) => {
+  const pageTitle = await productsPage.getTitle();
   test.expect(pageTitle).toEqual('Automation Exercise - All Products');
   const headerText = await productsPage.getProductsHeaderText();
   console.log(`Products Page Header: ${headerText}`);
@@ -21,9 +21,9 @@ Then('the browser should display the list of available products', async ({ page,
   test.expect(countLisOfProducts).toBeGreaterThan(1);
 });
 
-Then('the user select the first product to view details', async ({ page, productsPage }) => {
+Then('the user select the first product to view details', async ({ productsPage }) => {
   await productsPage.clickFirstProduct();
-  test.expect(page.url()).toContain('/product_details/');
+  test.expect(await productsPage.getUrl()).toContain('/product_details/');
 });
 
 When('the browser should display detailed information about the selected product', async ({ productsPage }) => {
@@ -50,9 +50,9 @@ Then('the browser should display search results related to {string}', async ({ p
   test.expect(productNameGrid).toEqual(productName);
 });
 
-When('the user select the product {string} to view details', async ({ page, productsPage }, productName: string) => {
+When('the user select the product {string} to view details', async ({ productsPage }, productName: string) => {
   await productsPage.selectProductByName(productName);
-  await page.waitForLoadState('networkidle');
+  await productsPage.waitForPageLoad();
   await productsPage.verifyProductDetailsPageIsLoaded();
   const productNameSelected = await productsPage.getProductName();
   const productPrice = await productsPage.getProductPrice();
@@ -65,9 +65,9 @@ When('the user select the product {string} to view details', async ({ page, prod
   test.expect(productName).toEqual(productNameSelected);
 });
 
-When('the user select a product brand {string}', async ({ page, productsPage }, brand: string) => {
+When('the user select a product brand {string}', async ({ productsPage }, brand: string) => {
   await productsPage.filterByBrand(brand);
-  await page.waitForLoadState('networkidle');
+  await productsPage.waitForPageLoad();
 });
 
 When('the browser should display products list related to {string}', async ({ productsPage }, brand: string) => {
@@ -107,11 +107,11 @@ When('the browser should display products list related to {string}', async ({ pr
   // const productNames = await productsPage.getProductNameList();
 });
 
-When('the user select a random product from list to view details', async ({ page, productsPage }) => {
+When('the user select a random product from list to view details', async ({ productsPage }) => {
   const productListNames = await productsPage.getProductNameList();
   const randomProduct = selectRandomProduct(productListNames);
   await productsPage.selectProductByName(randomProduct);
-  await page.waitForLoadState('networkidle');
+  await productsPage.waitForPageLoad();
 });
 
 Then('the browser should display detailed information about the selected product by brand {string}', async ({ productsPage }, brand: string) => {

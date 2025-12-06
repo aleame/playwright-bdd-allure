@@ -28,8 +28,17 @@ export default class BasePage {
      * @description Get the page title
      * @returns {string} Page title
      */
-    async getTitle() {
+    async getTitle(): Promise<string> {
         return await this.page.title();
+    }
+
+    /**
+     * @method getUrl
+     * @description Get the current URL
+     * @returns {string} Page URL
+     */
+    async getUrl(): Promise<string> {
+        return this.page.url();
     }
 
     /**
@@ -260,7 +269,7 @@ export default class BasePage {
      */
     async waitForPageLoad(
         state: 'load' | 'domcontentloaded' = 'domcontentloaded',
-        timeout = 30000
+        timeout: number = 30000
     ): Promise<void> {
         try {
             await this.page.waitForLoadState(state, { timeout });

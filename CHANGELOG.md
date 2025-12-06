@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.4] - 2025-12-07
+## [1.0.5] - 2025-12-06
+
+### Added
+- Added `getUrl()` method to `BasePage` for retrieving current page URL
+- Added explicit return type `Promise<string>` to `getTitle()` method in `BasePage` for better type safety
+
+### Changed
+- **Major refactoring**: Updated all step definition files to use `BasePage` utility methods instead of direct Playwright `Page` API calls
+  - Refactored `checkout.steps.ts` to use `waitForPageLoad()` instead of `page.waitForLoadState()`
+  - Refactored `home.steps.ts` to use `navigateTo()`, `getTitle()`, and `waitForPageLoad()` instead of direct `page` methods
+  - Refactored `products.steps.ts` to use `getTitle()`, `getUrl()`, and `waitForPageLoad()` instead of direct `page` methods
+  - Refactored `login.steps.ts` to use `navigateTo()`, `getTitle()`, and `getUrl()` instead of direct `page` methods
+- Removed unnecessary `page` fixture dependencies from step definitions where `BasePage` methods are now used
+
+### Improved
+- Enhanced consistency across all step definitions by standardizing on `BasePage` utility methods
+- Improved error handling in step definitions by leveraging custom error types from `BasePage`
+- Moved away from deprecated `'networkidle'` wait state to recommended `'domcontentloaded'` state
+- Better maintainability through centralized page interaction logic in `BasePage`
+
+## [1.0.4] - 2025-12-06
 
 ### Changed
 - **Major refactoring**: Updated all page object classes to use `BasePage` utility methods for improved error handling and consistency
@@ -27,10 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved null safety in text content retrieval methods
 - Standardized timeout handling across all page interactions
 - Better auto-waiting behavior for element interactions reducing test flakiness
-
-
-
-
 
 ## [1.0.3] - 2025-12-06
 
@@ -53,8 +69,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed from `getLoggedInNewUser()` method
   - Removed from `verifyLoggedInUser()` method
 - Removed unused `cartAddRandomProduct()` function from `utils.ts`
-
-
 
 ## [1.0.2] - 2025-12-05
 
