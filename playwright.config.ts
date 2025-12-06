@@ -6,7 +6,7 @@ dotenv.config();
 
 const testDir = defineBddConfig({
   features: 'src/features/*.feature',
-  steps: ['src/step-definitions/*.ts', 'src/fixtures/pageFixtures.ts']
+  steps: ['src/step-definitions/*.ts', 'src/fixtures/pageFixtures.ts', 'src/hooks/*.ts']
 });
 
 export default defineConfig({
