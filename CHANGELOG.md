@@ -7,26 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.0.2] - 2025-12-05
+
 ### Added
+- Added VSCode workspace recommendations for Playwright and Cucumber extensions in `.vscode/extensions.json`
+- Added agent rules file `.agent/rules/deny-commands.md` for controlling dangerous shell commands
+- Added comprehensive project structure documentation to README
+- Added GitHub repository badge to README
+- Added detailed test coverage section to README
+- Added key directories explanation to README
+
+### Changed
+- **Major README overhaul**: Restructured and enhanced documentation with better organization and visual hierarchy
+  - Improved overview section with project highlights and architecture description
+  - Added detailed project structure diagram with directory explanations
+  - Enhanced installation instructions with clearer formatting
+  - Improved report sections with better categorization
+  - Updated formatting throughout for better readability
+- Renamed `src/Schema/` directory to `src/schema/` for consistent lowercase naming convention
+- Cleaned up `.gitignore` by removing `package-lock.json` entry
+
+
+## [1.0.1] - 2025-12-04
+
+### Added
+- Added JSDoc comments to `generateNewAccountInfo` function in `utils.ts` for better code documentation
 - Added new `Given` step "The user register new account and logins with valid authentication" in `login.steps.ts` for combined registration and login flow
 - Added `saveUserCredentials` function in `utils.ts` to persist generated user credentials to file
 - Created `user-credentials.txt` file in `src/data/` to store generated test account credentials with timestamps
 - Integrated credential saving into registration step definitions for tracking created test accounts
 
 ### Changed
-- Updated Shop feature background to use new registration and login step instead of simple login
-- Enhanced console logging for new account information with emoji prefix for better visibility
-
-## [1.0.1] - 2025-12-04
-
-### Added
-- Added JSDoc comments to `generateNewAccountInfo` function in `utils.ts` for better code documentation
-
-### Changed
 - Removed comments from all class files for cleaner, more maintainable code
 - Simplified `open:playwright` script to use `npx playwright show-report` instead of platform-specific commands
 - Updated README to include Faker.js in the tech stack
 - Updated README Playwright report instructions to use the simplified cross-platform `open:playwright` command
+- Updated Shop feature background to use new registration and login step instead of simple login
+- Enhanced console logging for new account information with emoji prefix for better visibility
 
 ## [1.0.0] - 2025-12-04
 
