@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "ms-playwright.playwright",
+        "CucumberOpen.cucumber-official"
+    ],
+    "unwantedRecommendations": []
+}

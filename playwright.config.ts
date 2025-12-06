@@ -11,7 +11,6 @@ const testDir = defineBddConfig({
 
 export default defineConfig({
   testDir,
-
   outputDir: 'reports/test-results',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
