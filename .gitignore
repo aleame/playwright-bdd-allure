@@ -1,3 +1,13 @@
 node_modules/
 reports/*
 .features-gen/
+
+# Test artifacts
+test-results/
+playwright-report/
+blob-report/
+downloads/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -23,7 +23,6 @@ export class HomePage extends BasePage {
             state: 'visible',
             timeout: 10000
         });
-        await this.page.waitForTimeout(500);
         return await this.elements.loggedInUser().textContent();
     }
 
@@ -33,7 +32,6 @@ export class HomePage extends BasePage {
             state: 'visible',
             timeout: 10000
         });
-        await this.page.waitForTimeout(500);
         return await this.elements.loggedInNewUser().textContent();
     }
 
@@ -50,7 +48,6 @@ export class HomePage extends BasePage {
             if (text && text.includes(expectedEmail)) {
                 return;
             }
-            await this.page.waitForTimeout(500);
             attempts++;
         }
         const finalText = await this.elements.loggedInUser().textContent();
