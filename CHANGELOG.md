@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.6] - 2025-12-06
+
+### Changed
+- Customized Allure report hierarchy to use Feature name as Parent Suite
+
 ## [1.0.5] - 2025-12-06
 
 ### Added
