@@ -1,8 +1,7 @@
 import { createBdd } from 'playwright-bdd';
 import { test } from '@fixtures/pageFixtures';
-import { URLs, ValidationTexts } from '@data/test-data';
+import { ValidationTexts } from '@data/test-data';
 import { selectRandomProduct } from '@support/utils';
-
 
 const { When, Then } = createBdd(test);
 
@@ -105,7 +104,7 @@ When('the browser should display products list related to {string}', async ({ pr
   }
   const countLisOfProducts = await productsPage.getNumberOfDisplayedProducts();
   console.log(`Number of displayed products after search: ${countLisOfProducts}`);
-  const productNames = await productsPage.getProductNameList();
+  // const productNames = await productsPage.getProductNameList();
 });
 
 When('the user select a random product from list to view details', async ({ page, productsPage }) => {
@@ -121,9 +120,9 @@ Then('the browser should display detailed information about the selected product
   const productPrice = await productsPage.getProductPrice();
   const productBrand = await productsPage.getProductBrand();
   const productCategory = await productsPage.getProductCategory();
+  test.expect(productNameSelected).not.toBeNull();
   test.expect(productPrice).not.toBeNull();
   test.expect(productBrand).not.toBeNull();
   test.expect(productCategory).not.toBeNull();
   test.expect(productBrand).toContain(brand);
 });
-
