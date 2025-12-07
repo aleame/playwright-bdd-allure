@@ -1,0 +1,11 @@
+services:
+  playwright-tests:
+    build: .
+    image: playwright-bdd-allure
+    ipc: host
+    volumes:
+      - ./reports:/app/reports
+    env_file:
+      - envs/.env
+    environment:
+      - HEADLESS=true

@@ -146,6 +146,30 @@ npm run test:products:firefox
 npm run test:products:headed
 ```
 
+
+## 🐳 Run with Docker
+You can run the tests inside a Docker container to ensure a consistent environment.
+
+1. **Build and Run tests:**
+    ```bash
+    docker compose up --build
+    ```
+    This command will build the image and run the tests. The results will be saved in the `reports/allure-results` directory.
+    
+    > **Note:** The Allure HTML report is not generated inside the container to keep the image light. You can generate it locally using the results:
+    ```bash
+    npm run allure:serve
+    ```
+
+2. **Run manually:**
+    If you prefer to run specific commands inside the container:
+    ```bash
+    docker compose run playwright-tests npx playwright test --grep @login
+    ```
+
+3. **Environment Variables:**
+    The configuration uses the `.env` file if present. Ensure your `.env` file is configured correctly before running.
+
 ## 📊 Reports
 
 ### ℹ️ This project has two types of reports
