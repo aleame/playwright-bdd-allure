@@ -24,6 +24,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Run smoke tests before building image
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.11.0
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Generate BDD tests
+        run: npm run bddgen
+
+      - name: Run login smoke tests
+        run: npx playwright test --grep @login
+        env:
+          HEADLESS: true
+
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
