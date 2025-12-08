@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] - 2025-12-08
+
+### Added
+- Added Playwright configuration file `config/playwright.config.ts` for centralized configuration.
+- Added ESLint configuration file `config/eslint.config.mjs` for code quality checks.
+- Added `test-runner.ts` script to run tests with optional parameters:
+  - `--browser`: Specify browser (e.g., chrome, firefox, webkit)
+  - `--grep`: Filter tests by name using grep
+  - `--headed`: Run tests in headed mode
+  - `--no-allure`: Disable Allure report generation
+
+### Changed
+- Updated project structure to use `config` directory for configuration files.
+- Updated `package.json` scripts to use `config` directory for configuration files.
+- Updated `.github/workflows/docker-publish.yml` to push Docker image only in main branch.
+- Updated `config/playwright.config.ts` to use `config` directory for configuration files.
+- Updated `config/eslint.config.mjs` to use `config` directory for configuration files.
+- Updated README.md file with
+    - Test runner instructions
+    - Docker instructions
+    - CI/CD instructions
+    - GitHub Actions workflow instructions
+
 ## [1.0.7] - 2025-12-08
 
 ### Added
