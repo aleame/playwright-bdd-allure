@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.7] - 2025-12-08
+
+### Added
+- Docker support: Added `Dockerfile`, `docker-compose.yml`, and `.dockerignore`.
+- CI/CD: Added GitHub Actions workflow `.github/workflows/docker-publish.yml` to build and push Docker images.
+- Allure support in Docker: Installed Java and Allure in Docker image to enable report generation.
+
 ## [1.0.6] - 2025-12-06
 
 ### Changed

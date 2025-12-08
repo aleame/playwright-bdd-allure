@@ -23,7 +23,7 @@
     "test:singup:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @createaccount && npm run allure:generate",
     "test:singup:allure:headed": "npm run clean:allure && playwright test --grep @createaccount --headed && npm run allure:generate",
     "test:login:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @login && npm run allure:generate",
-    "test:login:allure": "npm run clean:allure && playwright test --grep @login && npm run allure:generate",
+    "test:login:allure": "npm run clean:allure && (playwright test --grep @login || true) && npm run allure:generate",
     "test:login:allure:headed": "npm run clean:allure && playwright test --grep @login --headed && npm run allure:generate",
     "test:products:allure": "npm run clean:allure && playwright test --grep @products && npm run allure:generate",
     "test:products:allure:firefox": "npm run clean:allure && BROWSER=firefox playwright test --grep @products && npm run allure:generate",

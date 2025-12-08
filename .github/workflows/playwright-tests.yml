@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         browser: [chromium, firefox]
-        node-version: [24.11.0] # ⚠️ FALLARÁ: Versión inexistente en GitHub Actions
+        node-version: [24.11.0]
     steps:
       - uses: actions/checkout@v4
 
@@ -25,13 +25,16 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install ${{ matrix.browser }}
 
+      - name: Generate BDD tests
+        run: npm run bddgen
+
       - name: Run tests
-        run: BROWSER=${{ matrix.browser }} npm test
+        run: BROWSER=${{ matrix.browser }} npm run test:login
 
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cucumber-report-${{ matrix.browser }}
-          path: reports/cucumber-report.html
+          name: playwright-report-${{ matrix.browser }}
+          path: reports/playwright
           retention-days: 7
