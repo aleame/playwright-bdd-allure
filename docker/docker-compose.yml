@@ -11,4 +11,4 @@ services:
       - ../envs/.env
     environment:
       - HEADLESS=true
-    command: npm run test:login:allure
+    command: npm run test:login

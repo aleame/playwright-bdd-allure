@@ -13,6 +13,8 @@ This is a **modern end-to-end test automation framework** combining Playwright's
 - **🟦 [TypeScript](https://www.typescriptlang.org/)**
 - **🧪 [Faker.js](https://fakerjs.dev/)**
 - **🟢 [Node.js](https://nodejs.org/)**
+- **🐳 [Docker](https://www.docker.com/)**
+- **🤖 [Github Actions](https://github.com/features/actions)**
 
 ### 🎯 Project Highlights
 - **🌐 Target Application:** [AutomationExercise.com](https://automationexercise.com/) - E-commerce testing playground
@@ -51,13 +53,15 @@ playwright-bdd-allure/
 │   │   ├── login.locators.ts
 │   │   ├── products.locators.ts
 │   │   └── index.ts
+│   ├── hooks/                   # Global hooks
+│   │   └── global.hooks.ts
 │   ├── pages/                   # Page Object Model (POM) classes
 │   │   ├── base.page.ts
 │   │   ├── checkout.page.ts
 │   │   ├── home.page.ts
 │   │   ├── login.page.ts
 │   │   └── products.page.ts
-│   ├── Schema/                  # TypeScript schemas/interfaces
+│   ├── schema/                  # TypeScript schemas/interfaces
 │   │   └── AccountInfoSchema.ts
 │   ├── step-definitions/        # Cucumber step implementations
 │   │   ├── checkout.steps.ts
@@ -68,10 +72,21 @@ playwright-bdd-allure/
 │       ├── interfaces.ts
 │       └── utils.ts
 ├── envs/                        # Environment configuration files
+├── docker/                      # Docker configuration files
+│   ├── docker-compose.yml       
+│   └── Dockerfile
+├── scripts/                     # Custom scripts
+│   └── test-runner.ts           # Test runner script
+├── config/                      # Configuration files
+│   ├── eslint.config.mjs        
+│   └── playwright.config.ts     
+├── .github/
+│   └── workflows/               # GitHub Actions configuration files
+│       ├── docker-publish.yml   
+│       └── playwright-test.yml  
 ├── images/                      # Report screenshots for documentation
 ├── .features-gen/               # Auto-generated Playwright test files
 ├── reports/                     # Generated test reports (Playwright & Allure)
-├── playwright.config.ts         # Playwright configuration
 ├── tsconfig.json                # TypeScript configuration
 ├── package.json                 # Project dependencies and scripts
 ├── CHANGELOG.md                 # Project changelog
@@ -109,9 +124,11 @@ playwright-bdd-allure/
 {
   "scripts": {
     "bddgen": "playwright-bdd generate",
-    "test:products": "playwright test --grep @products",
-    "test:shop:allure": "npm run clean:allure && playwright test --grep @shop && npm run allure:generate",
-    "test:allure": "npm run clean:allure && playwright test && npm run allure:generate"
+    "test": "npm run test:runner",
+    "test:headed": "npm run test:runner -- --headed",
+    "test:firefox": "npm run test:runner -- --browser firefox",
+    "test:products": "npm run test:runner -- --grep @products",
+    "allure:open": "allure open reports/allure-report"
   }
 }
 ```
@@ -127,27 +144,32 @@ Feature: Login
 ```
 
 ## 🚀 Running tests
-- Run all tests **with allure report**:
+By default, all test commands include **Allure report generation**.
+
+- **Run all tests**:
 ```bash
-npm run test:allure
+npm run test
 ```
-- Run products tests **without allure** report:
+
+- **Run specific suite (e.g., products)**:
 ```bash
 npm run test:products
 ```
 
-- To run with firefox browser **add firefox** to run command:
+- **Run with specific options** (pass arguments after `--`):
 ```bash
-npm run test:products:firefox
-```
+# Run products tests on Firefox
+npm run test:products -- --browser firefox
 
-- To run headed mode **add headed** to run command:
-```bash
-npm run test:products:headed
-```
+# Run tests in headed mode
+npm run test:products -- --headed
 
+# Run without generating Allure report
+npm run test:products -- --no-allure
+```
 
 ## 🐳 Run with Docker
+
 You can run the tests inside a Docker container to ensure a consistent environment.
 
 1. **Build and Run tests:**
@@ -179,6 +201,10 @@ You can run the tests inside a Docker container to ensure a consistent environme
 
 3. **Environment Variables:**
     The configuration uses the `.env` file if present. Ensure your `.env` file is configured correctly before running.
+
+## 🤖 Github Actions
+
+This project has a Github Actions workflow that runs on push and pull requests. It runs the tests and generates the Allure report.
 
 ## 📊 Reports
 

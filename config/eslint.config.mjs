@@ -13,7 +13,8 @@ export default [
             '*.config.js',
             '*.config.ts',
             '*.config.mjs',
-            'playwright.config.ts',
+            'config/**/*.config.ts',
+            'config/**/*.config.mjs',
             'package-lock.json',
             'dist/**',
             'build/**',
@@ -29,7 +30,7 @@ export default [
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: import.meta.dirname,
+                tsconfigRootDir: import.meta.dirname + '/..',
             },
         },
         rules: {
