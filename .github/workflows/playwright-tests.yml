@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         browser: [chromium, firefox]
-        node-version: [24.11.0] # ⚠️ FALLARÁ: Versión inexistente en GitHub Actions
+        node-version: [24.11.0]
     steps:
       - uses: actions/checkout@v4
 
