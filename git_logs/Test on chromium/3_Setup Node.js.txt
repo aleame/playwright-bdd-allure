@@ -1,0 +1,21 @@
+﻿2025-12-08T05:03:40.7603156Z ##[group]Run actions/setup-node@v4
+2025-12-08T05:03:40.7603798Z with:
+2025-12-08T05:03:40.7604249Z   node-version: 24.11.0
+2025-12-08T05:03:40.7604742Z   cache: npm
+2025-12-08T05:03:40.7605197Z   always-auth: false
+2025-12-08T05:03:40.7605940Z   check-latest: false
+2025-12-08T05:03:40.7606591Z   token: ***
+2025-12-08T05:03:40.7607317Z ##[endgroup]
+2025-12-08T05:03:40.9339877Z Attempting to download 24.11.0...
+2025-12-08T05:03:41.2416511Z Acquiring 24.11.0 - x64 from https://github.com/actions/node-versions/releases/download/24.11.0-18894910158/node-24.11.0-linux-x64.tar.gz
+2025-12-08T05:03:41.6812358Z Extracting ...
+2025-12-08T05:03:41.6912492Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/e8824f28-b883-47bb-961b-3e1928bba31e -f /home/runner/work/_temp/e8a08091-6b00-407a-9964-ce3d68ca0234
+2025-12-08T05:03:42.9596372Z Adding to the cache ...
+2025-12-08T05:03:44.7702650Z ##[group]Environment details
+2025-12-08T05:03:44.9966114Z node: v24.11.0
+2025-12-08T05:03:44.9966979Z npm: 11.6.1
+2025-12-08T05:03:44.9967380Z yarn: 1.22.22
+2025-12-08T05:03:44.9968605Z ##[endgroup]
+2025-12-08T05:03:44.9988336Z [command]/opt/hostedtoolcache/node/24.11.0/x64/bin/npm config get cache
+2025-12-08T05:03:45.0901943Z /home/runner/.npm
+2025-12-08T05:03:45.1645191Z npm cache is not found

@@ -25,6 +25,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install ${{ matrix.browser }}
 
+      - name: Generate BDD tests
+        run: npm run bddgen
+
       - name: Run tests
         run: BROWSER=${{ matrix.browser }} npm test
 

@@ -1,0 +1,12 @@
+﻿2025-12-08T05:03:54.8323661Z ##[group]Run BROWSER=firefox npm test
+2025-12-08T05:03:54.8324006Z [36;1mBROWSER=firefox npm test[0m
+2025-12-08T05:03:54.8357947Z shell: /usr/bin/bash -e {0}
+2025-12-08T05:03:54.8358184Z ##[endgroup]
+2025-12-08T05:03:54.9332415Z 
+2025-12-08T05:03:54.9333038Z > playwright-bdd-allure@1.0.0 test
+2025-12-08T05:03:54.9333489Z > playwright test
+2025-12-08T05:03:54.9333637Z 
+2025-12-08T05:03:55.8631665Z [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-12-08T05:03:55.8969146Z Error: No tests found
+2025-12-08T05:03:55.9054997Z 
+2025-12-08T05:03:55.9307369Z ##[error]Process completed with exit code 1.
