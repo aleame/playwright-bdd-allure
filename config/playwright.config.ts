@@ -2,16 +2,20 @@ import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+import * as path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '../envs/.env') });
 
 const testDir = defineBddConfig({
-  features: 'src/features/*.feature',
-  steps: ['src/step-definitions/*.ts', 'src/fixtures/pageFixtures.ts', 'src/hooks/*.ts']
+  outputDir: '../.features-gen',
+  featuresRoot: '..',
+  features: '../src/features/*.feature',
+  steps: ['../src/step-definitions/*.ts', '../src/fixtures/pageFixtures.ts', '../src/hooks/*.ts']
 });
 
 export default defineConfig({
   testDir,
-  outputDir: 'reports/test-results',
+  outputDir: path.resolve(__dirname, '../reports/test-results'),
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -19,10 +23,10 @@ export default defineConfig({
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['html', { outputFolder: 'reports/playwright' }],
+    ['html', { outputFolder: path.resolve(__dirname, '../reports/playwright') }],
     ['list'],
     ['allure-playwright', {
-      resultsDir: 'reports/allure-results',
+      resultsDir: path.resolve(__dirname, '../reports/allure-results'),
       suiteTitle: true,
       environmentInfo: {
         'Test Framework': 'Playwright + BDD',
@@ -36,7 +40,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    headless: process.env.HEADLESS !== 'false',
+    headless: process.env.HEADLESS !== 'true',
     // headless: false,
   },
 
