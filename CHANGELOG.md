@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.9] - 2025-12-09
+
+### Added
+- Added Netify integration for Allure report deployment.
+- Added GitHub Actions workflow `.github/workflows/playwright-tests.yml` to run tests.
+
+
+### Changed
+- Updated GitHub Actions workflow `.github/workflows/docker-publish.yml` to push Docker image only in main branch.
+
 ## [1.0.8] - 2025-12-08
 
 ### Added
