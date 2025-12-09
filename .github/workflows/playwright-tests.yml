@@ -74,7 +74,7 @@ jobs:
 
       - name: Fix Allure Redirect
         if: always()
-        run: echo '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=${{ github.run_number }}/index.html">' > allure-history/index.html
+        run: echo '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=${{ github.run_number }}/index.html">' | sudo tee allure-history/index.html
 
       - name: Deploy to Netlify
         id: netlify-deploy
