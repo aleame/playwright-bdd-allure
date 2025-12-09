@@ -73,6 +73,7 @@ jobs:
           keep_reports: 20
 
       - name: Deploy to Netlify
+        id: netlify-deploy
         uses: nwtgck/actions-netlify@v2.0
         if: always()
         with:
@@ -86,3 +87,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Output Report URL
+        if: always()
+        run: echo "🚀 Allure Report Deployed to ${{ steps.netlify-deploy.outputs.deploy-url }}" >> $GITHUB_STEP_SUMMARY
