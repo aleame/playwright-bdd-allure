@@ -52,6 +52,10 @@ jobs:
     if: always()
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
     steps:
       - name: Download Allure Results
         uses: actions/download-artifact@v4
