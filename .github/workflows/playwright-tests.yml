@@ -72,6 +72,10 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
+      - name: Fix Allure Redirect
+        if: always()
+        run: echo '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=${{ github.run_number }}/index.html">' > allure-history/index.html
+
       - name: Deploy to Netlify
         id: netlify-deploy
         uses: nwtgck/actions-netlify@v2.0
