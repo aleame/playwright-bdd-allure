@@ -192,12 +192,12 @@ You can run the tests inside a Docker container to ensure a consistent environme
     
     *   **Run by Tag (e.g., @login):**
         ```bash
-        docker compose -f docker/docker-compose.yml run --rm playwright-tests bash -c "npm run clean:allure && npx playwright test --grep @login && npm run allure:generate"
+        docker compose -f docker/docker-compose.yml run --rm playwright-tests bash -c 'npm run clean:allure; npx playwright test --grep @login; npm run allure:generate'
         ```
     
     *   **Run by Feature File:**
         ```bash
-        docker compose -f docker/docker-compose.yml run --rm playwright-tests bash -c "npm run clean:allure && npx playwright test src/features/01_Login.feature && npm run allure:generate"
+        docker compose -f docker/docker-compose.yml run --rm playwright-tests bash -c 'npm run clean:allure; npx playwright test src/features/01_Login.feature; npm run allure:generate'
         ```
 
     > **Note:** The `bash -c "..."` pattern is used to chain the test execution and report generation commands together.

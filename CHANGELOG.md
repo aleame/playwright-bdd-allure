@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-12-10
+
+### Fix
+- Fixed Dockerfile to use correct path for Allure report generation.
+- Fixed README.md instructions for running tests in Docker.
+
 ## [1.0.9] - 2025-12-09
 
 ### Added
