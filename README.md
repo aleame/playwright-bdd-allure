@@ -15,6 +15,7 @@ This is a **modern end-to-end test automation framework** combining Playwright's
 - **🟢 [Node.js](https://nodejs.org/)**
 - **🐳 [Docker](https://www.docker.com/)**
 - **🤖 [Github Actions](https://github.com/features/actions)**
+- **🌐 [Netlify](https://www.netlify.com/)**
 
 ### 🎯 Project Highlights
 - **🌐 Target Application:** [AutomationExercise.com](https://automationexercise.com/) - E-commerce testing playground
@@ -23,6 +24,8 @@ This is a **modern end-to-end test automation framework** combining Playwright's
 - **📊 Dual Reporting:** Rich Allure reports with detailed analytics + Playwright HTML reports
 - **🔧 Type-Safe:** Full TypeScript implementation for better IDE support and fewer runtime errors
 - **🎲 Dynamic Data:** Faker.js integration for realistic test data generation
+- **🐳 Docker:** Containerized environment for consistent testing
+- **🤖 CI/CD:** Automated testing and deployment using GitHub Actions and Netlify to publish reports
 
 ### ✅ Test Coverage
 - **User authentication (login/logout)**
@@ -101,7 +104,7 @@ playwright-bdd-allure/
 - **`src/fixtures/`** - Custom Playwright fixtures for page objects and shared state
 - **`reports/`** - Generated Allure and Playwright HTML reports
 
-## 🏁 Prerequisites
+## 📋 Prerequisites
 - **Node.js 22+**
 - **npm or yarn**
 
@@ -143,7 +146,7 @@ Feature: Login
     Then the browser should display user mail account in homepage
 ```
 
-## 🚀 Running tests
+## 🏁 Running tests
 By default, all test commands include **Allure report generation**.
 
 - **Run all tests**:
@@ -202,9 +205,20 @@ You can run the tests inside a Docker container to ensure a consistent environme
 3. **Environment Variables:**
     The configuration uses the `.env` file if present. Ensure your `.env` file is configured correctly before running.
 
-## 🤖 Github Actions
+## 🚀 CI/CD Pipeline
 
-This project has a Github Actions workflow that runs on push and pull requests. It runs the tests and generates the Allure report.
+This project is configured to automatically test and deploy reports using **GitHub Actions** and **Netlify**.
+
+### 🔄 Integration Features
+- **Automated Testing**: Runs `chromium` and `firefox` tests on every push.
+- **History Preservation**: Keeps Allure report history across builds.
+- **Secure Deployment**: Publishes a static website with the test results.
+
+### ⚙️ Configuration (For Forks)
+To enable this pipeline in your own repository:
+1.  **Netlify**: Create a site and get your `NETLIFY_SITE_ID` and `NETLIFY_AUTH_TOKEN`.
+2.  **GitHub Secrets**: Add these as repository secrets in Settings > Secrets and variables > Actions.
+3.  **Push**: The `playwright-tests.yml` workflow will handle the rest.
 
 ## 📊 Reports
 
@@ -234,8 +248,11 @@ npm run open:playwright
 - Dashboard:
 ![Dashboard](/images/02_Allure_Dashboard.png)
 
+- Behaviors:
+![Behaviors](/images/03_Allure_Behaviors.png)
+
 - Scenario:
-![Scenario](/images/03_Allure_Scenarion_error_attachments.png)
+![Scenario](/images/04_Allure_Scenarion_error_attachments.png)
 
 ### 📉 Playwright Reporter
 - Suite:
