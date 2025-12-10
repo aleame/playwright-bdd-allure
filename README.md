@@ -149,6 +149,11 @@ Feature: Login
 ## 🏁 Running tests
 By default, all test commands include **Allure report generation**.
 
+- **Test runner help 🛟**:
+```bash
+npm run test:runner -- --help
+```
+
 - **Run all tests**:
 ```bash
 npm run test
@@ -169,6 +174,11 @@ npm run test:products -- --headed
 
 # Run without generating Allure report
 npm run test:products -- --no-allure
+```
+
+- **Run with multiple options** (pass arguments after `--`):
+```bash
+npm run test:products -- --browser firefox --headed --no-allure
 ```
 
 ## 🐳 Run with Docker

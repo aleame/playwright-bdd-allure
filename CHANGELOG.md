@@ -7,11 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-12-10
+
+### Added
+- Added `scripts/test-runner.ts· to run tests with optional parameters:
+  - `--browser`: Specify browser (e.g., chrome, firefox, webkit)
+  - `--grep`: Filter tests by name using grep
+  - `--headed`: Run tests in headed mode
+  - `--no-allure`: Disable Allure report generation
+
+### Changed
+- Updated `README.md` instructions for running tests in Docker.
+
 ## [1.1.0] - 2025-12-10
 
 ### Fix
-- Fixed Dockerfile to use correct path for Allure report generation.
-- Fixed README.md instructions for running tests in Docker.
+- Fixed `Dockerfile` to use correct path for Allure report generation.
+- Fixed `README.md` instructions for running tests in Docker.
 
 ## [1.0.9] - 2025-12-09
 
