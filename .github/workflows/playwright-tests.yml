@@ -38,3 +38,60 @@ jobs:
           name: playwright-report-${{ matrix.browser }}
           path: reports/playwright
           retention-days: 7
+
+      - name: Upload allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.browser }}
+          path: reports/allure-results
+          retention-days: 7
+
+  report:
+    name: Generate & Publish Allure Report
+    if: always()
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
+    steps:
+      - name: Download Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          path: all-allure-results
+          merge-multiple: true
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: all-allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Fix Allure Redirect
+        if: always()
+        run: echo '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=${{ github.run_number }}/index.html">' | sudo tee allure-history/index.html
+
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        uses: nwtgck/actions-netlify@v2.0
+        if: always()
+        with:
+          publish-dir: allure-history
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Output Report URL
+        if: always()
+        run: echo "🚀 Allure Report Deployed to ${{ steps.netlify-deploy.outputs.deploy-url }}" >> $GITHUB_STEP_SUMMARY
