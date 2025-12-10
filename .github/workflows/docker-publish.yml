@@ -41,7 +41,7 @@ jobs:
         run: npm run bddgen
 
       - name: Run login smoke tests
-        run: npx playwright test --grep @login
+        run: npx playwright test --config config/playwright.config.ts --grep @login
         env:
           HEADLESS: true
 
