@@ -121,6 +121,10 @@ playwright-bdd-allure/
     ```bash
     npm run bddgen
     ```
+4. Install Allure commandline:
+    ```bash
+    npm install -g allure-commandline --save-dev
+    ```
 
 ## 📦 Example package.json scripts
 ```json
