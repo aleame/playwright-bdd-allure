@@ -1,16 +1,15 @@
 import BasePage from './base.page';
-import { HomeLocators, CommonLocators } from '@locators';
+import { HomeLocators } from '@locators';
 
 export class HomePage extends BasePage {
     elements = {
-        loginSignupButton: () => this.page.locator(HomeLocators.LOGIN_PAGE_BUTTON),
-        loggedInUser: () => this.page.locator(HomeLocators.LOGGED_IN_USER_OK),
-        logoutButton: () => this.page.locator(HomeLocators.LOGOUT_BUTTON),
-        deleteAccountButton: () => this.page.locator(HomeLocators.DELETE_ACCOUNT_BUTTON),
-        productsButton: () => this.page.locator(HomeLocators.PRODUCTS_BUTTON),
-        cartButton: () => this.page.locator(HomeLocators.VIEW_CART_BUTTON),
-        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER),
-        loggedInNewUser: () => this.page.locator(HomeLocators.LOGGED_IN_NEW_USER)
+        loginSignupButton: () => this.page.getByRole('link', { name: HomeLocators.LOGIN_PAGE_BUTTON }),
+        logoutButton: () => this.page.getByRole('link', { name: HomeLocators.LOGOUT_BUTTON }),
+        loggedInUser: () => this.page.locator(HomeLocators.LOGGED_IN_USER),
+        deleteAccountButton: () => this.page.getByRole('link', { name: HomeLocators.DELETE_ACCOUNT_BUTTON }),
+        productsButton: () => this.page.getByRole('link', { name: HomeLocators.PRODUCTS_BUTTON }),
+        cartButton: () => this.page.getByRole('link', { name: HomeLocators.VIEW_CART_BUTTON }),
+        featuresItemsHeader: () => this.page.getByRole('heading', { level: 2, name: HomeLocators.FEATURES_ITEMS_HEADER }),
     };
 
     async clickLoginSignup(): Promise<void> {
@@ -18,23 +17,16 @@ export class HomePage extends BasePage {
     }
 
     async getLoggedInUserText(): Promise<string> {
-        return await this.getTextContent(HomeLocators.LOGGED_IN_USER_OK, {
+        return await this.getTextContent(this.elements.loggedInUser(), {
             timeout: 10000,
             required: true
         });
     }
 
-    async getLoggedInNewUserText(): Promise<string> {
-        return await this.getTextContent(HomeLocators.LOGGED_IN_NEW_USER, {
-            timeout: 10000,
-            required: true
-        });
-    }
-
-    async waitForLoggedInUserEmail(expectedEmail: string): Promise<void> {
+    async waitForLoggedInUser(expectedUser: string): Promise<void> {
         await this.waitForTextContains(
-            HomeLocators.LOGGED_IN_USER_OK,
-            expectedEmail,
+            this.elements.loggedInUser(),
+            expectedUser,
             { timeout: 15000 }
         );
     }
@@ -52,16 +44,16 @@ export class HomePage extends BasePage {
     }
 
     async verifyBrandsHeaderIsVisible(): Promise<void> {
-        await this.waitForLocator(this.elements.infoHeader().first(), { state: 'visible' });
+        await this.waitForLocator(this.page.getByRole('heading', { name: HomeLocators.BRANDS_HEADER }), { state: 'visible' });
     }
 
     async clickLogout(): Promise<void> {
-        await this.safeClick(HomeLocators.LOGOUT_BUTTON);
+        await this.safeClick(this.elements.logoutButton());
         await this.waitForPageLoad('domcontentloaded');
     }
 
     async verifyHomePageIsLoaded(): Promise<void> {
-        await this.waitForLocator(this.elements.infoHeader(), { state: 'visible' });
+        await this.waitForLocator(this.elements.featuresItemsHeader(), { state: 'visible' });
         await this.waitForLocator(this.elements.loginSignupButton(), { state: 'visible' });
     }
 

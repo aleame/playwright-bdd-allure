@@ -30,7 +30,7 @@ Given('The user register new account and logins with valid authentication', asyn
   const newAccountInfo: AccountInfo = generateNewAccountInfo();
   console.log(`\n 👤 New Account Information: `);
   console.log(newAccountInfo);
-  saveUserCredentials(newAccountInfo.email, newAccountInfo.password);
+  saveUserCredentials(newAccountInfo.email, newAccountInfo.password, newAccountInfo.first_name, newAccountInfo.last_name);
   await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
   await loginPage.enterAccountInformation(newAccountInfo);
   const headerText = await loginPage.getCreateAccountSuccessHeader();
@@ -81,7 +81,7 @@ When('the user provides new name and email address', async ({ loginPage, testCon
   console.log(`\n 👤 New Account Information: `);
   console.log(newAccountInfo);
   testContext.newAccountInfo = newAccountInfo;
-  saveUserCredentials(newAccountInfo.email, newAccountInfo.password);
+  saveUserCredentials(newAccountInfo.email, newAccountInfo.password, newAccountInfo.first_name, newAccountInfo.last_name);
   await loginPage.signup(newAccountInfo.first_name, newAccountInfo.last_name, newAccountInfo.email);
 });
 

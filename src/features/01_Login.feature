@@ -10,7 +10,7 @@ Feature: User Authentication - Automation Excercise
   Scenario: 01 - Login User with correct email and password
     When the user navigates to the authentication section
     And the user provides valid authentication credentials
-    Then the browser should display user mail account in homepage
+    Then the browser should display user name in homepage
 
   Scenario: 02 - Login User with incorrect email and password
     When the user navigates to the authentication section
@@ -33,7 +33,7 @@ Feature: User Authentication - Automation Excercise
   Scenario: 04 - Logout User
     When the user navigates to the authentication section
     And the user provides valid authentication credentials
-    And the browser should display user mail account in homepage
+    And the browser should display user name in homepage
     When the user logs out from the application
     Then the browser should display the login page again
 
@@ -43,4 +43,4 @@ Feature: User Authentication - Automation Excercise
     And the user provides new name and email address
     And the user fills out the form with personal information
     And the user validates the account creation
-    Then the browser should display new user mail account in homepage
+    Then the browser should display new user name in homepage

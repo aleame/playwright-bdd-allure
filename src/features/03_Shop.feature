@@ -16,4 +16,4 @@ Feature: Shop Management - Automation Excercise
       | Dress   |
       | Tshirt  |
     And the user proceed to checkout and verify total amount and products
-    And the user placer order with credit card
+    Then the user placer order with credit card
