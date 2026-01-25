@@ -26,7 +26,7 @@ Then('the user select the first product to view details', async ({ productsPage 
   test.expect(await productsPage.getUrl()).toContain('/product_details/');
 });
 
-When('the browser should display detailed information about the selected product', async ({ productsPage }) => {
+Then('the browser should display detailed information about the selected product', async ({ productsPage }) => {
   await productsPage.verifyProductDetailsPageIsLoaded();
   const productName = await productsPage.getProductName();
   const productPrice = await productsPage.getProductPrice();
@@ -71,7 +71,7 @@ When('the user select a product brand {string}', async ({ productsPage }, brand:
 });
 
 When('the browser should display products list related to {string}', async ({ productsPage }, brand: string) => {
-  const headerText = await productsPage.getProductsHeaderText();
+  const headerText = await productsPage.getBrandProductsHeaderText();
   console.log(`Products Page Header: ${headerText}`);
   switch (brand) {
     case 'Polo':

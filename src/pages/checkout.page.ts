@@ -5,35 +5,30 @@ import { creditCardData } from "@data/test-data";
 
 export class CheckoutPage extends BasePage {
     elements = {
-        productPrices: () => this.page.locator(CheckoutLocators.CART_PRICES),
         productQuantity: () => this.page.locator(CheckoutLocators.PRODUCT_QUANTITY),
-        checkoutButton: () => this.page.locator(CheckoutLocators.CHECKOUT_BUTTON),
-        proceedToCheckoutButton: () => this.page.locator(CheckoutLocators.PROCEED_TO_CHECKOUT_BUTTON),
-        confirmOrderButton: () => this.page.locator(CheckoutLocators.CONFIRM_ORDER_BUTTON),
-        paymentButton: () => this.page.locator(CheckoutLocators.PAYMENT_BUTTON),
-        termsButton: () => this.page.locator(CheckoutLocators.TERMS_BUTTON),
-        finalConfirmButton: () => this.page.locator(CheckoutLocators.FINAL_CONFIRM_BUTTON),
-        productsElements: () => this.page.locator(CheckoutLocators.PRODUCT_ELEMENT),
-        productsCardInfo: () => this.page.locator(CheckoutLocators.PRODUCTS_INFO),
+        checkoutButton: () => this.page.getByRole('link', { name: CheckoutLocators.CHECKOUT_BUTTON }).first(),
+        proceedToCheckoutButton: () => this.page.getByText(CheckoutLocators.PROCEED_TO_CHECKOUT),
+        paymentButton: () => this.page.getByRole('button', { name: CheckoutLocators.PAYMENT_BUTTON }),
+        productsCardInfo: () => this.page.locator(CheckoutLocators.PRODUCTS_CARD_INFO),
         productPrice: () => this.page.locator(CheckoutLocators.PRODUCT_PRICE),
         productInfo: () => this.page.locator(CheckoutLocators.PRODUCT_INFO),
         productId: () => this.page.locator(CheckoutLocators.PRODUCT_ID),
         addToCartId: () => this.page.locator(CheckoutLocators.ADD_TO_CART_ID),
         addToCartButton: () => this.page.locator(CheckoutLocators.ADD_TO_CART_BUTTON),
-        placeOrderButton: () => this.page.locator(CheckoutLocators.PLACE_ORDER_BUTTON),
+        placeOrderButton: () => this.page.getByRole('link', { name: CheckoutLocators.PLACE_ORDER }),
         nameOnCard: () => this.page.locator(CheckoutLocators.NAME_ON_CARD),
         cardNumber: () => this.page.locator(CheckoutLocators.CARD_NUMBER),
         expiryMonth: () => this.page.locator(CheckoutLocators.EXPIRY_MONTH),
         expiryYear: () => this.page.locator(CheckoutLocators.EXPIRY_YEAR),
         cvv: () => this.page.locator(CheckoutLocators.CVV),
-        cartTableRows: () => this.page.locator(CheckoutLocators.CART_TABLE_ROWS),
+        cartTableRows: () => this.page.locator(CheckoutLocators.CART_TABLE_ROW),
         cartProductName: () => this.page.locator(CheckoutLocators.CART_PRODUCT_NAME),
-        cartProductCategory: () => this.page.locator(CheckoutLocators.CART_PRODUCT_CATEGORY),
+        cartProductCategory: () => this.page.locator(CheckoutLocators.CART_PRODUCT_DESCRIPTION),
         cartProductPrice: () => this.page.locator(CheckoutLocators.CART_PRODUCT_PRICE),
         cartProductQuantity: () => this.page.locator(CheckoutLocators.CART_PRODUCT_QUANTITY),
         cartProductTotal: () => this.page.locator(CheckoutLocators.CART_PRODUCT_TOTAL),
-        cartTotalAmount: () => this.page.locator(CheckoutLocators.CART_TOTAL_AMOUNT),
-        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER)
+        cartTotalAmount: () => this.page.locator(CheckoutLocators.CART_PRODUCT_TOTAL_AMOUNT),
+        infoHeader: () => this.page.getByRole('heading', { name: CheckoutLocators.INFO_HEADER_ORDER_PLACED })
     };
 
     async getAllProducts() {
@@ -93,10 +88,10 @@ export class CheckoutPage extends BasePage {
         for (let i = 0; i < rowCount; i++) {
             const row = rows.nth(i);
 
-            const name = await row.locator('td.cart_description h4 a').textContent() || '';
-            const category = await row.locator('td.cart_description p').textContent() || '';
-            const priceText = await row.locator('td.cart_price p').textContent() || '';
-            const quantity = await row.locator('td.cart_quantity button').textContent() || '';
+            const name = await row.locator(CheckoutLocators.CART_PRODUCT_NAME).textContent() || '';
+            const category = await row.locator(CheckoutLocators.CART_PRODUCT_DESCRIPTION).textContent() || '';
+            const priceText = await row.locator(CheckoutLocators.CART_PRODUCT_PRICE).textContent() || '';
+            const quantity = await row.locator(CheckoutLocators.CART_PRODUCT_QUANTITY).textContent() || '';
             const rowId = await row.getAttribute('id') || '';
             const productId = rowId.replace('product-', '');
             const numericPrice = parseFloat(priceText.replace('Rs. ', '').trim()) || 0;

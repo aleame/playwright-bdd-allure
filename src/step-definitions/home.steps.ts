@@ -21,27 +21,33 @@ Given('The user logins with valid authentication credentials', async ({ homePage
     await loginPage.login(TestUsers.VALID.email, TestUsers.VALID.password);
     await allure.parameter('User Email', TestUsers.VALID.email);
     await loginPage.waitForPageLoad();
-    await homePage.waitForLoggedInUserEmail(TestUsers.VALID.email);
+    await homePage.waitForLoggedInUser(TestUsers.VALID.name);
     const loggedInUserText = await homePage.getLoggedInUserText();
     test.expect(loggedInUserText).toBeTruthy();
-    test.expect(loggedInUserText, `Expected logged-in user to contain "${TestUsers.VALID.email}" but got "${loggedInUserText}"`).toContain(TestUsers.VALID.email);
+    test.expect(loggedInUserText, `Expected logged-in user to contain "${TestUsers.VALID.name + ' ' + TestUsers.VALID.lastName}" but got "${loggedInUserText}"`).toContain(TestUsers.VALID.name + ' ' + TestUsers.VALID.lastName);
 });
 
 When('the user logs out from the application', async ({ homePage }) => {
     await homePage.clickLogout();
 });
 
-Then('the browser should display user mail account in homepage', async ({ homePage }) => {
+Then('the browser should display user name in homepage', async ({ homePage }) => {
     await homePage.verifyLoggedInUserIsVisible();
-    await homePage.waitForLoggedInUserEmail(TestUsers.VALID.email);
+    await homePage.waitForLoggedInUser(TestUsers.VALID.name);
     const loggedInUserText = await homePage.getLoggedInUserText();
     test.expect(loggedInUserText).toBeTruthy();
-    test.expect(loggedInUserText, `Expected logged-in user to contain "${TestUsers.VALID.email}" but got "${loggedInUserText}"`).toContain(TestUsers.VALID.email);
+    const fullName = `${TestUsers.VALID.name} ${TestUsers.VALID.lastName}`;
+    console.log("Fullname", fullName);
+    console.log("Logged in user text", loggedInUserText);
+    test.expect(loggedInUserText, `Expected logged-in user to contain "${fullName}" but got "${loggedInUserText}"`).toContain(fullName);
 });
 
-Then('the browser should display new user mail account in homepage', async ({ homePage, testContext }) => {
+Then('the browser should display new user name in homepage', async ({ homePage, testContext }) => {
+    const fullName = `${testContext.newAccountInfo.first_name} ${testContext.newAccountInfo.last_name}`;
+    console.log("Fullname", fullName);
     await homePage.verifyLoggedInUserIsVisible();
-    const loggedInUserText = await homePage.getLoggedInNewUserText();
+    const loggedInUserText = await homePage.getLoggedInUserText();
     test.expect(loggedInUserText).toBeTruthy();
-    test.expect(loggedInUserText, `Expected logged-in user to contain "${testContext.newAccountInfo.first_name}" but got "${loggedInUserText}"`).toContain(testContext.newAccountInfo.first_name);
+    console.log("Logged in user text", loggedInUserText);
+    test.expect(loggedInUserText, `Expected logged-in user to contain "${fullName}" but got "${loggedInUserText}"`).toContain(fullName);
 });

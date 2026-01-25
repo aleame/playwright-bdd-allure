@@ -91,10 +91,7 @@ export default class BasePage {
      * @param {Object} options - Wait options (state, timeout)
      * @throws {TimeoutError} If locator doesn't reach desired state within timeout
      */
-    async waitForLocator(
-        locator: Locator,
-        options?: { state?: 'visible' | 'hidden' | 'attached'; timeout?: number }
-    ): Promise<void> {
+    async waitForLocator(locator: Locator, options?: { state?: 'visible' | 'hidden' | 'attached'; timeout?: number }): Promise<void> {
         const state = options?.state || 'visible';
         const timeout = options?.timeout || 5000;
 
@@ -124,10 +121,7 @@ export default class BasePage {
      * @param {Object} options - Click options (timeout)
      * @throws {ElementNotInteractableError} If element cannot be clicked
      */
-    async safeClick(
-        selector: string | Locator,
-        options?: { timeout?: number }
-    ): Promise<void> {
+    async safeClick(selector: string | Locator, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
         const selectorStr = typeof selector === 'string' ? selector : 'locator';
@@ -148,11 +142,7 @@ export default class BasePage {
      * @param {Object} options - Fill options (timeout)
      * @throws {ElementNotInteractableError} If element cannot be filled
      */
-    async safeFill(
-        selector: string | Locator,
-        value: string,
-        options?: { timeout?: number }
-    ): Promise<void> {
+    async safeFill(selector: string | Locator, value: string, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
         const selectorStr = typeof selector === 'string' ? selector : 'locator';
@@ -173,10 +163,7 @@ export default class BasePage {
      * @returns {string} Text content (empty string if not found and not required)
      * @throws {TextContentError} If element not found and required is true
      */
-    async getTextContent(
-        selector: string | Locator,
-        options?: { timeout?: number; required?: boolean }
-    ): Promise<string> {
+    async getTextContent(selector: string | Locator, options?: { timeout?: number; required?: boolean }): Promise<string> {
         const timeout = options?.timeout || 5000;
         const required = options?.required ?? true;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
@@ -202,11 +189,7 @@ export default class BasePage {
      * @param {Object} options - Select options (timeout)
      * @throws {ElementNotInteractableError} If dropdown cannot be interacted with
      */
-    async selectOption(
-        selector: string | Locator,
-        value: string,
-        options?: { timeout?: number }
-    ): Promise<void> {
+    async selectOption(selector: string | Locator, value: string, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
         const selectorStr = typeof selector === 'string' ? selector : 'locator';
@@ -227,11 +210,7 @@ export default class BasePage {
      * @param {Object} options - Wait options (timeout)
      * @throws {TextContentError} If text doesn't contain expected value within timeout
      */
-    async waitForTextContains(
-        selector: string | Locator,
-        expectedText: string,
-        options?: { timeout?: number }
-    ): Promise<void> {
+    async waitForTextContains(selector: string | Locator, expectedText: string, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
         const selectorStr = typeof selector === 'string' ? selector : 'locator';
@@ -267,10 +246,7 @@ export default class BasePage {
      * @param {number} timeout - Timeout in milliseconds (default: 30000)
      * @throws {NavigationError} If page doesn't reach load state within timeout
      */
-    async waitForPageLoad(
-        state: 'load' | 'domcontentloaded' = 'domcontentloaded',
-        timeout: number = 30000
-    ): Promise<void> {
+    async waitForPageLoad(state: 'load' | 'domcontentloaded' = 'domcontentloaded', timeout: number = 30000): Promise<void> {
         try {
             await this.page.waitForLoadState(state, { timeout });
         } catch (_error) {

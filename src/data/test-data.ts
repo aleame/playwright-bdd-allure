@@ -33,7 +33,8 @@ export const TestUsers = {
     VALID: {
         email: 'automationexercise.neglector460@passmail.net',
         password: '5q5MCQSubfRp&M',
-        name: 'automationexercise'
+        name: 'Alex',
+        lastName: 'Perez',
     },
     INVALID: {
         email: 'failuremail@gmail.com',

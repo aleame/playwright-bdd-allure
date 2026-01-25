@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-01-25
+
+### Refactoring Locators
+- Refactored pririty graphic [IMG](/images/10_Playwright_Priority_Selector.png)
+
+| Priority | Method             | Example                                                   | Stability |
+|----------|--------------------|-----------------------------------------------------------|-----------|
+| 1        | `getByRole`        | `page.getByRole('button', { name: 'Submit' })`            | ★★★★★     |
+| 2        | `getByText`        | `page.getByText('Sign in')`                               | ★★★★☆     |
+| 3        | `getByLabel`       | `page.getByLabel('Email address')`                        | ★★★★☆     |
+| 4        | `getByPlaceholder` | `page.getByPlaceholder('Search product')`                 | ★★★☆☆     |
+| 5        | `getByAltText`     | `page.getByAltText('Company logo')`                       | ★★★☆☆     |
+| 6        | `getByTestId`      | `page.getByTestId('login-button')`                        | ★★☆☆☆     |
+| 7        | CSS/XPath          | `page.locator('.btn-primary')`                            | ★☆☆☆☆     |
+
+- Pages classes refactoring. Prefered method getByRole over getByText or Locator from Playwright documentation
+  - /src/pages/checkout.page.ts
+  - /src/pages/home.page.ts
+  - /src/pages/login.page.ts
+  - /src/pages/products.page.ts
+- Locators refactoring. 
+  - /src/locators/checkout.locators.ts
+  - /src/locators/home.locators.ts
+  - /src/locators/login.locators.ts
+  - /src/locators/products.locators.ts
+
 ## [1.1.2] - 2026-01-15
 
 ### Added
