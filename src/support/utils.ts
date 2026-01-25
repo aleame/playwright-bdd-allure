@@ -30,7 +30,11 @@ export function generateNewAccountInfo(): AccountInfo {
     gender: gender,
     first_name: faker.person.firstName(gender as 'male' | 'female'),
     last_name: faker.person.lastName(),
-    email: faker.internet.email(),
+    email: (() => {
+      const baseEmail = faker.internet.email();
+      const randomNumbers = Math.floor(1000 + Math.random() * 9000); // Generate 4-digit random number
+      return baseEmail.replace('@', `${randomNumbers}@`);
+    })(),
     password: faker.internet.password({ length: 12, memorable: false, pattern: /[A-Za-z0-9!@#$%]/ }),
     day_birth: birthYear.getDate().toString(),
     month_birth: (birthYear.getMonth() + 1).toString(),
@@ -52,7 +56,7 @@ export function generateNewAccountInfo(): AccountInfo {
  * @param {string} password - User password
  * @returns {void}
  */
-export function saveUserCredentials(email: string, password: string): void {
+export function saveUserCredentials(email: string, password: string, firstName: string, lastName: string): void {
   const credentialsDir = path.join(process.cwd(), 'src/data');
   const credentialsFile = path.join(credentialsDir, 'user-credentials.txt');
   if (!fs.existsSync(credentialsDir)) {
@@ -63,6 +67,8 @@ export function saveUserCredentials(email: string, password: string): void {
     `Created: ${timestamp}\n` +
     `Email: ${email}\n` +
     `Password: ${password}\n` +
+    `First Name: ${firstName}\n` +
+    `Last Name: ${lastName}\n` +
     `${'='.repeat(60)}\n`;
   fs.appendFileSync(credentialsFile, credentialEntry, 'utf8');
   console.log(`✅ Credentials saved to: ${credentialsFile}`);

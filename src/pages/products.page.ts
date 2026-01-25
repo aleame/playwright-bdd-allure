@@ -3,49 +3,50 @@ import { CommonLocators, ProductsLocators } from "@locators"
 
 export class ProductsPage extends BasePage {
     elements = {
-        productsHeader: () => this.page.locator(ProductsLocators.PRODUCTS_HEADER),
-        womensProducts: () => this.page.locator(ProductsLocators.WOMENS_PRODUCTS),
-        mensProducts: () => this.page.locator(ProductsLocators.MENS_PRODUCTS),
-        kidsProducts: () => this.page.locator(ProductsLocators.KIDS_PRODUCTS),
-        searchInput: () => this.page.locator(ProductsLocators.SEARCH_INPUT),
+        productsHeader: () => this.page.getByRole('heading', { name: ProductsLocators.PRODUCTS_HEADER }),
+        brandProductsHeader: () => this.page.getByRole('heading', { name: /Brand - .* Products/ }),
+        womensProducts: () => this.page.getByRole('link', { name: ProductsLocators.WOMENS_PRODUCTS, exact: true }),
+        mensProducts: () => this.page.getByRole('link', { name: ProductsLocators.MENS_PRODUCTS, exact: true }),
+        kidsProducts: () => this.page.getByRole('link', { name: ProductsLocators.KIDS_PRODUCTS, exact: true }),
+        searchInput: () => this.page.getByRole('textbox', { name: ProductsLocators.SEARCH_INPUT }),
         searchButton: () => this.page.locator(ProductsLocators.SEARCH_BUTTON),
-        noProductsFoundMessage: () => this.page.locator(ProductsLocators.NO_PRODUCTS_FOUND_MESSAGE),
-        brandPolo: () => this.page.locator(ProductsLocators.BRAND_POLO),
-        brandHM: () => this.page.locator(ProductsLocators.BRAND_HM),
-        brandMadame: () => this.page.locator(ProductsLocators.BRAND_MADAME),
-        brandMastHarbour: () => this.page.locator(ProductsLocators.BRAND_MAST_HARBOUR),
-        brandBabyhug: () => this.page.locator(ProductsLocators.BRAND_BABYHUG),
-        brandBiba: () => this.page.locator(ProductsLocators.BRAND_BIBA),
-        brandAllenSollyJunior: () => this.page.locator(ProductsLocators.BRAND_ALLEN_SOLLY_JUNIOR),
-        brandKookieKids: () => this.page.locator(ProductsLocators.BRAND_KOKIE_KIDS),
+        noProductsFoundMessage: () => this.page.getByText(ProductsLocators.NO_PRODUCTS_FOUND_MESSAGE),
+        brandPolo: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_POLO }),
+        brandHM: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_HM }),
+        brandMadame: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_MADAME }),
+        brandMastHarbour: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_MAST_HARBOUR }),
+        brandBabyhug: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_BABYHUG }),
+        brandBiba: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_BIBA }),
+        brandAllenSollyJunior: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_ALLEN_SOLLY_JUNIOR }),
+        brandKookieKids: () => this.page.getByRole('link', { name: ProductsLocators.BRAND_KOOKIE_KIDS }),
         productByLinkID: (productId: string) => this.page.locator(`a[href="/product_details/${productId}"]`),
-        firstProductViewLink: () => this.page.locator(ProductsLocators.VIEW_PRODUCT_FIRST_LINK),
-        productItems: () => this.page.locator('.col-sm-4:has(.product-image-wrapper)'),
-        productWrappers: () => this.page.locator(ProductsLocators.PRODUCT_WRAPPER),
-        viewProductLinks: () => this.page.locator(ProductsLocators.VIEW_PRODUCT_LINK),
-        reviewsTab: () => this.page.locator(ProductsLocators.REVIEWS_TAB),
+        firstProductViewLink: () => this.page.getByRole('link', { name: ProductsLocators.VIEW_PRODUCT }).first(),
+        productItems: () => this.page.locator(ProductsLocators.PRODUCT_ITEMS),
+        productWrappers: () => this.page.locator(ProductsLocators.PRODUCT_IMAGE_WRAPPER),
+        viewProductLinks: () => this.page.getByRole('link', { name: ProductsLocators.VIEW_PRODUCT }),
+        reviewsTab: () => this.page.getByRole('link', { name: ProductsLocators.WRITE_REVIEW_TAB }),
         productInformation: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION),
-        productName: () => this.page.locator(ProductsLocators.PRODUCT_NAME),
-        productPrice: () => this.page.locator(ProductsLocators.PRODUCT_PRICE),
-        productCategory: () => this.page.locator(ProductsLocators.PRODUCT_CATEGORY),
-        productAvailability: () => this.page.locator(ProductsLocators.PRODUCT_AVAILABILITY),
-        productCondition: () => this.page.locator(ProductsLocators.PRODUCT_CONDITION),
-        productBrand: () => this.page.locator(ProductsLocators.PRODUCT_BRAND),
-        quantityInput: () => this.page.locator(ProductsLocators.QUANTITY_INPUT),
-        addToCartButton: () => this.page.locator(ProductsLocators.ADD_TO_CART_BUTTON),
-        productNameGrid: () => this.page.locator(ProductsLocators.PRODUCT_NAME_GRID),
-        productPriceGrid: () => this.page.locator(ProductsLocators.PRODUCT_PRICE_GRID),
-        addToCartButtonGrid: () => this.page.locator(ProductsLocators.ADD_TO_CART_BUTTON_GRID),
-        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER)
+        productName: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_NAME),
+        productPrice: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_PRICE),
+        productCategory: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_CATEGORY),
+        productAvailability: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_AVAILABILITY),
+        productCondition: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_CONDITION),
+        productBrand: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_BRAND),
+        quantityInput: () => this.page.getByRole('spinbutton', { name: ProductsLocators.QUANTITY_INPUT }),
+        addToCartButton: () => this.page.getByRole('button', { name: ProductsLocators.ADD_TO_CART_BUTTON }),
+        productNameGrid: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_NAME_GRID),
+        productPriceGrid: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_PRICE_GRID),
+        addToCartButtonGrid: () => this.page.locator(ProductsLocators.PRODUCT_INFORMATION_ADD_TO_CART_GRID),
+        searchedProductsHeader: () => this.page.getByRole('heading', { name: ProductsLocators.SEARCHED_PRODUCTS_HEADER }),
     };
 
     async selectProductByName(productName: string): Promise<void> {
         const productWrapper = this.elements.productWrappers().filter({
-            has: this.page.locator(ProductsLocators.PRODUCT_NAME_GRID, { hasText: productName })
+            has: this.page.locator(ProductsLocators.PRODUCT_INFORMATION_NAME_GRID, { hasText: productName })
         }).first();
         await this.waitForLocator(productWrapper, { state: 'visible' });
-        await this.waitForLocator(productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK), { state: 'visible' });
-        await this.safeClick(productWrapper.locator(ProductsLocators.VIEW_PRODUCT_LINK));
+        await this.waitForLocator(productWrapper.locator('a[href^="/product_details/"]'), { state: 'visible' });
+        await this.safeClick(productWrapper.locator('a[href^="/product_details/"]'));
         await this.waitForPageLoad('domcontentloaded');
     }
 
@@ -90,8 +91,12 @@ export class ProductsPage extends BasePage {
         return await this.elements.productsHeader().innerText();
     }
 
+    getBrandProductsHeaderText(): Promise<string> {
+        return this.elements.brandProductsHeader().innerText();
+    }
+
     async clickFirstProduct(): Promise<void> {
-        await this.scrollToElement(ProductsLocators.VIEW_PRODUCT_FIRST_LINK);
+        await this.scrollToElement('a[href="/product_details/1"]');
         await this.safeClick(this.elements.firstProductViewLink());
     }
 
@@ -108,7 +113,7 @@ export class ProductsPage extends BasePage {
     }
 
     async verifySearchedProductsHeaderIsVisible(): Promise<void> {
-        await this.waitForLocator(this.elements.infoHeader(), {
+        await this.waitForLocator(this.elements.searchedProductsHeader(), {
             state: 'visible',
             timeout: 1000
         });
@@ -165,7 +170,7 @@ export class ProductsPage extends BasePage {
     async verifyFilteredProductsByBrand(brand: string): Promise<void> {
         const productCount = await this.getNumberOfProductsAfterFilter();
         for (let i = 0; i < productCount; i++) {
-            const productBrand = await this.elements.productItems().nth(i).locator(ProductsLocators.PRODUCT_BRAND).textContent();
+            const productBrand = await this.elements.productItems().nth(i).locator('.product-information p:has-text("Brand:")').textContent();
             if (productBrand?.toLowerCase() !== brand.toLowerCase()) {
                 throw new Error(`Product brand ${productBrand} does not match filter brand ${brand}`);
             }

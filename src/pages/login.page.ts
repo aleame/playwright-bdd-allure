@@ -4,33 +4,34 @@ import { CommonLocators, LoginLocators } from '@locators';
 
 export class LoginPage extends BasePage {
     elements = {
-        signupLoginButton: () => this.page.locator(LoginLocators.SIGNUP_LOGIN_BUTTON),
-        emailInput: () => this.page.locator(LoginLocators.EMAIL_INPUT),
-        loginPassword: () => this.page.locator(LoginLocators.PASSWORD_INPUT),
-        loginButton: () => this.page.locator(LoginLocators.LOGIN_BUTTON),
-        loginHeader: () => this.page.locator(LoginLocators.LOGIN_HEADER),
-        loginErrorMessage: () => this.page.locator(LoginLocators.LOGIN_ERROR_MESSAGE),
-        signupName: () => this.page.locator(LoginLocators.SIGNUP_NAME),
-        signupEmail: () => this.page.locator(LoginLocators.SIGNUP_EMAIL),
-        signupPassword: () => this.page.locator(LoginLocators.SIGNUP_PASSWORD),
-        signupButton: () => this.page.locator(LoginLocators.SIGNUP_BUTTON),
-        genderMale: () => this.page.locator(LoginLocators.GENDER_MALE),
-        genderFemale: () => this.page.locator(LoginLocators.GENDER_FEMALE),
+        signupLoginButton: () => this.page.getByRole('link', { name: LoginLocators.SIGNUP_LOGIN_BUTTON }),
+        emailInput: () => this.page.getByRole('textbox', { name: LoginLocators.EMAIL_ADDRESS }).first(),
+        loginPassword: () => this.page.getByRole('textbox', { name: LoginLocators.PASSWORD }).first(),
+        loginButton: () => this.page.getByRole('button', { name: LoginLocators.LOGIN_BUTTON }),
+        loginHeader: () => this.page.getByRole('heading', { name: LoginLocators.LOGIN_HEADER }),
+        loginErrorMessage: () => this.page.getByRole('paragraph').filter({ hasText: LoginLocators.LOGIN_ERROR_MESSAGE }),
+        signupName: () => this.page.getByRole('textbox', { name: LoginLocators.NAME }),
+        signupEmail: () => this.page.getByRole('textbox', { name: LoginLocators.EMAIL_ADDRESS }).nth(1),
+        signupPassword: () => this.page.getByRole('textbox', { name: LoginLocators.PASSWORD }),
+        signupButton: () => this.page.getByRole('button', { name: LoginLocators.SIGNUP_BUTTON }),
+        genderMale: () => this.page.getByRole('radio', { name: LoginLocators.GENDER_MALE }),
+        genderFemale: () => this.page.getByRole('radio', { name: LoginLocators.GENDER_FEMALE }),
         dateDay: () => this.page.locator(LoginLocators.DATE_DAY),
         dateMonth: () => this.page.locator(LoginLocators.DATE_MONTH),
         dateYear: () => this.page.locator(LoginLocators.DATE_YEAR),
-        firstName: () => this.page.locator(LoginLocators.FIRST_NAME),
-        lastName: () => this.page.locator(LoginLocators.LAST_NAME),
-        company: () => this.page.locator(LoginLocators.COMPANY),
-        address: () => this.page.locator(LoginLocators.ADDRESS),
-        country: () => this.page.locator(LoginLocators.COUNTRY),
-        state: () => this.page.locator(LoginLocators.STATE),
-        city: () => this.page.locator(LoginLocators.CITY),
+        firstName: () => this.page.getByRole('textbox', { name: LoginLocators.FIRST_NAME }),
+        lastName: () => this.page.getByRole('textbox', { name: LoginLocators.LAST_NAME }),
+        company: () => this.page.getByRole('textbox', { name: LoginLocators.COMPANY }).first(),
+        address: () => this.page.getByRole('textbox', { name: LoginLocators.ADDRESS }).first(),
+        country: () => this.page.getByRole('combobox', { name: LoginLocators.COUNTRY }),
+        state: () => this.page.getByRole('textbox', { name: LoginLocators.STATE }),
+        city: () => this.page.getByRole('textbox', { name: LoginLocators.CITY }),
         zipcode: () => this.page.locator(LoginLocators.ZIPCODE),
-        mobilePhone: () => this.page.locator(LoginLocators.MOBILE_PHONE),
-        createAccountButton: () => this.page.locator(LoginLocators.CREATE_ACCOUNT_BUTTON),
-        infoHeader: () => this.page.locator(CommonLocators.INFO_HEADER),
-        continueButton: () => this.page.locator(LoginLocators.CONTINUE_BUTTON)
+        mobilePhone: () => this.page.getByRole('textbox', { name: LoginLocators.MOBILE_NUMBER }),
+        createAccountButton: () => this.page.getByRole('button', { name: LoginLocators.CREATE_ACCOUNT_BUTTON }),
+        headerAccountCreated: () => this.page.getByRole('heading', { name: LoginLocators.HEADER_ACCOUNT_CREATED }),
+        headerAccountDeleted: () => this.page.getByRole('heading', { name: LoginLocators.HEADER_ACCOUNT_DELETED }),
+        continueButton: () => this.page.getByRole('link', { name: LoginLocators.CONTINUE_BUTTON }),
     };
 
     async navigateToLogin(): Promise<void> {
@@ -38,9 +39,9 @@ export class LoginPage extends BasePage {
     }
 
     async login(email: string, password: string): Promise<void> {
-        await this.safeFill(LoginLocators.EMAIL_INPUT, email);
-        await this.safeFill(LoginLocators.PASSWORD_INPUT, password);
-        await this.safeClick(LoginLocators.LOGIN_BUTTON);
+        await this.safeFill(this.elements.emailInput(), email);
+        await this.safeFill(this.elements.loginPassword(), password);
+        await this.safeClick(this.elements.loginButton());
     }
 
     async getLoginHeaderText(): Promise<string> {
@@ -101,7 +102,14 @@ export class LoginPage extends BasePage {
     }
 
     async getCreateAccountSuccessHeader(): Promise<string> {
-        return await this.getTextContent(this.elements.infoHeader(), {
+        return await this.getTextContent(this.elements.headerAccountCreated(), {
+            timeout: 5000,
+            required: true
+        });
+    }
+
+    async getDeleteAccountSuccessHeader(): Promise<string> {
+        return await this.getTextContent(this.elements.headerAccountDeleted(), {
             timeout: 5000,
             required: true
         });

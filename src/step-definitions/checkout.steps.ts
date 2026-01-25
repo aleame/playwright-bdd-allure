@@ -2,7 +2,7 @@ import { createBdd } from 'playwright-bdd'
 import { test, expect } from '@fixtures/pageFixtures'
 import { DataTable } from '@cucumber/cucumber';
 
-const { When } = createBdd(test);
+const { When, Then } = createBdd(test);
 
 When('the user searches for a product {string} and add to cart random product', async ({ }, productFilter: string) => {
     console.log("productFilter", productFilter);
@@ -73,7 +73,7 @@ When('the user proceed to checkout and verify total amount and products', async 
     console.log(`===================\n`);
 });
 
-When('the user placer order with credit card', async ({ checkoutPage }) => {
+Then('the user placer order with credit card', async ({ checkoutPage }) => {
     await checkoutPage.navigateToPlaceOrder();
     await checkoutPage.waitForPageLoad();
     await checkoutPage.addCreditCard();
