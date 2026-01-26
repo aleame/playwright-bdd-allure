@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-01-26
+
+### Added
+- Enhanced type safety in `interfaces.ts` by adding specific `Gender` and `Country` union types.
+- Improved `AccountInfo` interface with more specific attribute types.
+
+### Changed
+- **Web-First Assertions**: Refactored `BasePage` class to use Playwright's `expect(locator).toContainText()`, improving reliability and eliminating manual polling.
+- **Locator Standardization**: Standardized naming convention for all locators across the project using consistent suffixes (`_LINK`, `_INPUT`, `_BUTTON`, `_HEADER`, `_CSS`).
+  - Standardized `CommonLocators`, `HomeLocators`, `LoginLocators`, `ProductsLocators`, and `CheckoutLocators`.
+- Updated all Page Object Model classes to comply with standardized locator names.
+- Simplified `waitForLocator` logic in `BasePage` for better maintainability.
+
 ## [1.2.0] - 2026-01-25
 
 ### Refactoring Locators

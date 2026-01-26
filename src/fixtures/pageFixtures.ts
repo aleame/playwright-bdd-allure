@@ -3,10 +3,10 @@ import { LoginPage } from '@pages/login.page';
 import { HomePage } from '@pages/home.page';
 import { ProductsPage } from '@pages/products.page';
 import { CheckoutPage } from '@pages/checkout.page';
-import { ProductInfo } from '@support/interfaces';
+import { ProductInfo, AccountInfo } from '@support/interfaces';
 
 type TestContext = {
-  newAccountInfo: import("/home/alex/git/playwright-bdd-allure/src/support/interfaces").AccountInfo;
+  newAccountInfo: AccountInfo;
   addedProducts: ProductInfo[];
 };
 

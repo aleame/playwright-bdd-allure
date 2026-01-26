@@ -1,4 +1,5 @@
 import { Page, Locator } from 'playwright';
+import { expect } from '@playwright/test';
 import {
     ElementNotInteractableError,
     TimeoutError,
@@ -98,18 +99,15 @@ export default class BasePage {
         try {
             await locator.waitFor({ state, timeout });
         } catch (_error) {
-            const selector = await locator.evaluate(el => {
-                const getSelector = (element: Element): string => {
-                    if (element.id) {
-                        return `#${element.id}`;
-                    }
-                    if (element.className) {
-                        return `.${element.className.split(' ')[0]}`;
-                    }
-                    return element.tagName.toLowerCase();
-                };
-                return getSelector(el);
-            }).catch(() => 'unknown selector');
+            // Attempt to get a selector for the error message
+            let selector = 'locator';
+            try {
+                selector = await locator.evaluate(el => {
+                    if (el.id) return `#${el.id}`;
+                    if (el.className) return `.${el.className.split(' ')[0]}`;
+                    return el.tagName.toLowerCase();
+                });
+            } catch { /* ignore */ }
             throw new TimeoutError(`locator to be ${state}`, selector, timeout);
         }
     }
@@ -204,7 +202,7 @@ export default class BasePage {
 
     /**
      * @method waitForTextContains
-     * @description Wait for element text to contain expected value
+     * @description Wait for element text to contain expected value using web-first assertions
      * @param {string | Locator} selector - CSS selector or Playwright Locator
      * @param {string} expectedText - Expected text to contain
      * @param {Object} options - Wait options (timeout)
@@ -214,34 +212,18 @@ export default class BasePage {
         const timeout = options?.timeout || 5000;
         const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
         const selectorStr = typeof selector === 'string' ? selector : 'locator';
-        const startTime = Date.now();
 
         try {
-            await locator.waitFor({ state: 'visible', timeout });
-
-            while (Date.now() - startTime < timeout) {
-                const text = await locator.textContent();
-                if (text && text.includes(expectedText)) {
-                    return;
-                }
-                // eslint-disable-next-line playwright/no-wait-for-timeout
-                await this.page.waitForTimeout(100); // Polling interval for text content check
-            }
-
-            const finalText = await locator.textContent();
-            throw new TextContentError(selectorStr, expectedText, finalText ?? '');
+            await expect(locator).toContainText(expectedText, { timeout });
         } catch (error) {
-            if (error instanceof TextContentError) {
-                throw error;
-            }
-            const finalText = await locator.textContent().catch(() => '') ?? '';
-            throw new TextContentError(selectorStr, expectedText, finalText);
+            const actualText = await locator.textContent().catch(() => '') || 'unknown';
+            throw new TextContentError(selectorStr, expectedText, actualText);
         }
     }
 
     /**
      * @method waitForPageLoad
-     * @description Wait for page to reach a specific load state (replaces deprecated networkidle)
+     * @description Wait for page to reach a specific load state
      * @param {string} state - Load state to wait for (default: 'domcontentloaded')
      * @param {number} timeout - Timeout in milliseconds (default: 30000)
      * @throws {NavigationError} If page doesn't reach load state within timeout
@@ -253,4 +235,4 @@ export default class BasePage {
             throw new NavigationError(`page to reach ${state} state`);
         }
     }
-};
+}

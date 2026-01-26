@@ -1,3 +1,14 @@
+export type Gender = 'male' | 'female';
+
+export type Country =
+  | 'India'
+  | 'United States'
+  | 'Canada'
+  | 'Australia'
+  | 'Israel'
+  | 'New Zealand'
+  | 'Singapore';
+
 export interface UserType {
   usertype: string;
 }
@@ -25,7 +36,7 @@ export interface ProductInfo {
 }
 
 export interface AccountInfo {
-  gender: string;
+  gender: Gender | string;
   first_name: string;
   last_name: string;
   email: string;
@@ -35,7 +46,7 @@ export interface AccountInfo {
   year_birth: string;
   company: string;
   address: string;
-  country: string;
+  country: Country | string;
   state: string;
   city: string;
   zipcode: string;

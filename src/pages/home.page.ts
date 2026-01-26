@@ -3,12 +3,12 @@ import { HomeLocators } from '@locators';
 
 export class HomePage extends BasePage {
     elements = {
-        loginSignupButton: () => this.page.getByRole('link', { name: HomeLocators.LOGIN_PAGE_BUTTON }),
-        logoutButton: () => this.page.getByRole('link', { name: HomeLocators.LOGOUT_BUTTON }),
-        loggedInUser: () => this.page.locator(HomeLocators.LOGGED_IN_USER),
-        deleteAccountButton: () => this.page.getByRole('link', { name: HomeLocators.DELETE_ACCOUNT_BUTTON }),
-        productsButton: () => this.page.getByRole('link', { name: HomeLocators.PRODUCTS_BUTTON }),
-        cartButton: () => this.page.getByRole('link', { name: HomeLocators.VIEW_CART_BUTTON }),
+        loginSignupButton: () => this.page.getByRole('link', { name: HomeLocators.LOGIN_SIGNUP_LINK }),
+        logoutButton: () => this.page.getByRole('link', { name: HomeLocators.LOGOUT_LINK }),
+        loggedInUser: () => this.page.locator(HomeLocators.LOGGED_IN_USER_STATUS),
+        deleteAccountButton: () => this.page.getByRole('link', { name: HomeLocators.DELETE_ACCOUNT_LINK }),
+        productsButton: () => this.page.getByRole('link', { name: HomeLocators.PRODUCTS_LINK }),
+        cartButton: () => this.page.getByRole('link', { name: HomeLocators.CART_LINK }),
         featuresItemsHeader: () => this.page.getByRole('heading', { level: 2, name: HomeLocators.FEATURES_ITEMS_HEADER }),
     };
 
