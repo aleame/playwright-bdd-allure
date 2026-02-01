@@ -148,11 +148,12 @@ function main(): void {
 
     // 1. Clean Allure reports if enabled
     if (config.allure) {
-        console.log('🧹 Cleaning Allure reports...');
+        console.log('🧹 Cleaning Allure & Cucumber reports...');
         try {
             execSync('npm run clean:allure', { stdio: 'inherit' });
+            execSync('npm run clean:cucumber', { stdio: 'inherit' });
         } catch (error) {
-            console.warn('⚠️  Warning: Failed to clean Allure reports, continuing...\n');
+            console.warn('⚠️  Warning: Failed to clean reports, continuing...\n');
         }
     }
 
@@ -167,6 +168,8 @@ function main(): void {
     if (config.allure) {
         console.log('\n📊 Generating Allure report...');
         executeCommand('npm run allure:generate', 'Allure report generation');
+        console.log('\n🥒 Generating Cucumber report...');
+        executeCommand('npm run cucumber:report', 'Cucumber report generation');
     }
 
     // 5. Exit with appropriate code

@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import * as dotenv from 'dotenv';
-
 import * as path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../envs/.env') });
@@ -32,6 +31,10 @@ export default defineConfig({
         'Test Framework': 'Playwright + BDD',
         'Browser': 'Chromium',
       },
+    }],
+    ['playwright-bdd/reporter/cucumber', {
+      $type: 'json',
+      outputFile: path.resolve(__dirname, '../reports/cucumber/report.json'),
     }],
   ],
 
