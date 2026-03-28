@@ -1,6 +1,6 @@
 import { AccountInfo } from '@support/interfaces';
 import BasePage from './base.page';
-import { CommonLocators, LoginLocators } from '@locators';
+import { LoginLocators } from '@locators';
 
 export class LoginPage extends BasePage {
     elements = {
@@ -86,14 +86,14 @@ export class LoginPage extends BasePage {
             await this.safeClick(this.elements.genderFemale());
         }
         await this.safeFill(this.elements.signupPassword(), accountInfo.password);
-        await this.selectOption(this.elements.dateDay(), accountInfo.day_birth);
-        await this.selectOption(this.elements.dateMonth(), accountInfo.month_birth);
-        await this.selectOption(this.elements.dateYear(), accountInfo.year_birth);
+        await this.safeSelectOption(this.elements.dateDay(), accountInfo.day_birth);
+        await this.safeSelectOption(this.elements.dateMonth(), accountInfo.month_birth);
+        await this.safeSelectOption(this.elements.dateYear(), accountInfo.year_birth);
         await this.safeFill(this.elements.firstName(), accountInfo.first_name);
         await this.safeFill(this.elements.lastName(), accountInfo.last_name);
         await this.safeFill(this.elements.company(), accountInfo.company);
         await this.safeFill(this.elements.address(), accountInfo.address);
-        await this.selectOption(this.elements.country(), accountInfo.country);
+        await this.safeSelectOption(this.elements.country(), accountInfo.country);
         await this.safeFill(this.elements.state(), accountInfo.state);
         await this.safeFill(this.elements.city(), accountInfo.city);
         await this.safeFill(this.elements.zipcode(), accountInfo.zipcode);

@@ -1,5 +1,4 @@
-import { Page, Locator } from 'playwright';
-import { expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import {
     ElementNotInteractableError,
     TimeoutError,
@@ -13,14 +12,14 @@ export default class BasePage {
     /**
      * @method navigateTo
      * @description Navigate to a URL with error handling
-     * @param {string} url - URL to navigate to
+     * @param {string} path - URL to navigate to
      * @throws {NavigationError} If navigation fails
      */
-    async navigateTo(url: string) {
+    public async navigateTo(path: string): Promise<void> {
         try {
-            await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+            await this.page.goto(path, { waitUntil: 'domcontentloaded' });
         } catch (_error) {
-            throw new NavigationError(url);
+            throw new NavigationError(path);
         }
     }
 
@@ -68,11 +67,11 @@ export default class BasePage {
     }
 
     /**
-     * @method takeScreenshot
+     * @method captureScreenshot
      * @description Take a screenshot
      * @param {string} name - Screenshot filename
      */
-    async takeScreenshot(name: string) {
+    public async captureScreenshot(name: string): Promise<void> {
         await this.page.screenshot({ path: `screenshots/${name}.png` });
     }
 
@@ -103,8 +102,8 @@ export default class BasePage {
             let selector = 'locator';
             try {
                 selector = await locator.evaluate(el => {
-                    if (el.id) return `#${el.id}`;
-                    if (el.className) return `.${el.className.split(' ')[0]}`;
+                    if (el.id) { return `#${el.id}`; }
+                    if (el.className) { return `.${el.className.split(' ')[0]}`; }
                     return el.tagName.toLowerCase();
                 });
             } catch { /* ignore */ }
@@ -115,41 +114,37 @@ export default class BasePage {
     /**
      * @method safeClick
      * @description Safely click an element with auto-wait and error handling
-     * @param {string | Locator} selector - CSS selector or Playwright Locator
+     * @param {Locator} locator - Playwright Locator
      * @param {Object} options - Click options (timeout)
      * @throws {ElementNotInteractableError} If element cannot be clicked
      */
-    async safeClick(selector: string | Locator, options?: { timeout?: number }): Promise<void> {
+    public async safeClick(locator: Locator, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
-        const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
-        const selectorStr = typeof selector === 'string' ? selector : 'locator';
 
         try {
             await locator.waitFor({ state: 'visible', timeout });
             await locator.click({ timeout });
         } catch (_error) {
-            throw new ElementNotInteractableError('click', selectorStr);
+            throw new ElementNotInteractableError('click', 'locator');
         }
     }
 
     /**
      * @method safeFill
      * @description Safely fill an input field with validation
-     * @param {string | Locator} selector - CSS selector or Playwright Locator
-     * @param {string} value - Value to fill
+     * @param {Locator} locator - Playwright Locator
+     * @param {string} text - Value to fill
      * @param {Object} options - Fill options (timeout)
      * @throws {ElementNotInteractableError} If element cannot be filled
      */
-    async safeFill(selector: string | Locator, value: string, options?: { timeout?: number }): Promise<void> {
+    public async safeFill(locator: Locator, text: string, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
-        const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
-        const selectorStr = typeof selector === 'string' ? selector : 'locator';
 
         try {
             await locator.waitFor({ state: 'visible', timeout });
-            await locator.fill(value, { timeout });
+            await locator.fill(text, { timeout });
         } catch (_error) {
-            throw new ElementNotInteractableError('fill', selectorStr);
+            throw new ElementNotInteractableError('fill', 'locator');
         }
     }
 
@@ -180,17 +175,16 @@ export default class BasePage {
     }
 
     /**
-     * @method selectOption
+     * @method safeSelectOption
      * @description Select an option from a dropdown
-     * @param {string | Locator} selector - CSS selector or Playwright Locator
+     * @param {Locator} locator - Playwright Locator
      * @param {string} value - Option value to select
      * @param {Object} options - Select options (timeout)
      * @throws {ElementNotInteractableError} If dropdown cannot be interacted with
      */
-    async selectOption(selector: string | Locator, value: string, options?: { timeout?: number }): Promise<void> {
+    public async safeSelectOption(locator: Locator, value: string, options?: { timeout?: number }): Promise<void> {
         const timeout = options?.timeout || 5000;
-        const locator = typeof selector === 'string' ? this.page.locator(selector) : selector;
-        const selectorStr = typeof selector === 'string' ? selector : 'locator';
+        const selectorStr = 'locator';
 
         try {
             await locator.waitFor({ state: 'visible', timeout });
@@ -215,7 +209,7 @@ export default class BasePage {
 
         try {
             await expect(locator).toContainText(expectedText, { timeout });
-        } catch (error) {
+        } catch (_error) {
             const actualText = await locator.textContent().catch(() => '') || 'unknown';
             throw new TextContentError(selectorStr, expectedText, actualText);
         }

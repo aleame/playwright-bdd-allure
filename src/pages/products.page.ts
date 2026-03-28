@@ -1,5 +1,5 @@
 import BasePage from "./base.page";
-import { CommonLocators, ProductsLocators } from "@locators"
+import { ProductsLocators } from "@locators"
 
 export class ProductsPage extends BasePage {
     elements = {

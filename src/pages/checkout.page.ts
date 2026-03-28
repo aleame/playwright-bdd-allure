@@ -1,5 +1,5 @@
 import BasePage from "./base.page";
-import { CheckoutLocators, CommonLocators } from "@locators";
+import { CheckoutLocators } from "@locators";
 import { ProductInfo } from "@support/interfaces";
 import { creditCardData } from "@data/test-data";
 
