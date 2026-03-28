@@ -17,7 +17,7 @@ export enum CheckoutLocators {
     ORDER_PLACED_HEADER = 'Order Placed!',
     PAYMENT_BUTTON = 'Pay and Confirm Order',
     PLACE_ORDER_LINK = 'Place Order',
-    PROCEED_TO_CHECKOUT_TEXT = 'Proceed To Checkout',
+    PROCEED_TO_CHECKOUT_TEXT = 'Proceed To Checkout Link',
     PRODUCT_CARD_INFO_CSS = '.single-products',
     PRODUCT_ID_ATTR = 'data-product-id',
     PRODUCT_INFO_CSS = '.productinfo p',

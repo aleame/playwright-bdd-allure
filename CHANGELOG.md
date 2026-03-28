@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-03-27
+
+### Added
+- Added `ts-node` configuration in `tsconfig.json` for CommonJS compatibility.
+- New generated test user credentials in `src/data/user-credentials.txt`.
+
+### Changed
+- **BasePage Refactoring**: Renamed and improved core interaction methods for better consistency.
+  - Refactored `selectOption` to `safeSelectOption` using `Locator` objects.
+  - Improved `selectorStr` error handling in safe methods.
+- **Page Objects Update**: Updated `LoginPage`, `ProductsPage`, and `CheckoutPage` to utilize the new `safeSelectOption` method.
+- Updated ESLint configuration and test runner script for environment stability.
+
+### Fixed
+- Resolved reference error in `BasePage` where `selectorStr` was incorrectly accessed.
+
 ## [1.2.1] - 2026-01-26
 
 ### Added
