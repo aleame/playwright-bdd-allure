@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
 interface TestRunnerConfig {
     browser: string;
@@ -43,7 +43,6 @@ Examples:
 function validateBrowser(browser: string): boolean {
     return VALID_BROWSERS.includes(browser as Browser);
 }
-
 /**
  * @function parseArgs
  * @description Parses command line arguments and returns configuration object

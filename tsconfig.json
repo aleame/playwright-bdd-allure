@@ -40,5 +40,10 @@
     "include": [
         "src/**/*.ts",
         "scripts/**/*.ts"
-    ]
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    }
 }
